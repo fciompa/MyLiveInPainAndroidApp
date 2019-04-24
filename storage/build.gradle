@@ -1,42 +1,43 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion compile_sdk_version
+
+
     defaultConfig {
-        applicationId app_application_id
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
         versionCode version_code
         versionName version_name
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':domain')
-
-    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
 
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
-    implementation "androidx.vectordrawable:vectordrawable:$vectordrawable_version"
-
-    implementation "com.google.android.material:material:$material_version"
-
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     testImplementation "junit:junit:$junit_version"
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+}
 
+repositories {
+    mavenCentral()
 }
