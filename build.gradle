@@ -21,6 +21,7 @@ buildscript {
 //        runner_version = '1.2.0-alpha04'
         runner_version = '1.2.0-alpha04@aar'
         espresso_core_version = '3.2.0-alpha04'
+        room_version = '2.1.0-alpha06'
     }
 
     repositories {
