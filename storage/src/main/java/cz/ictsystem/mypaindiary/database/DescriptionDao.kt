@@ -7,7 +7,7 @@ import java.util.*
 @Dao
 interface DescriptionDao {
     @Query("SELECT * FROM description ORDER BY value")
-    fun getAll(): LiveData<List<DescriptionEntity>>
+    fun load(): LiveData<List<DescriptionEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(entity: DescriptionEntity)

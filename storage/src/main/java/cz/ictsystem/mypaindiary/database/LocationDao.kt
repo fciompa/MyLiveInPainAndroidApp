@@ -7,7 +7,7 @@ import java.util.*
 @Dao
 interface LocationDao {
     @Query("SELECT * FROM location ORDER BY value")
-    fun getAll(): LiveData<List<LocationEntity>>
+    fun load(): LiveData<List<LocationEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(entity: LocationEntity)
