@@ -6,6 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
+
+@Volatile
+private lateinit var INSTANCE: MyDb
+
 @Database(entities = [EntryEntity::class, LocationEntity::class, DescriptionEntity::class, PropertyEntity::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class MyDb  : RoomDatabase() {
@@ -15,10 +19,6 @@ abstract class MyDb  : RoomDatabase() {
     abstract val propertyDao: PropertyDao
 
     companion object {
-
-        @Volatile
-        private lateinit var INSTANCE: MyDb
-
         fun getInstance(context: Context): MyDb {
             synchronized(MyDb::class) {
                 if (!::INSTANCE.isInitialized) {

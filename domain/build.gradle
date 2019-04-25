@@ -26,8 +26,8 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':repository')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':storage')
 
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
@@ -39,6 +39,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
 
 }
+
 repositories {
     mavenCentral()
 }
