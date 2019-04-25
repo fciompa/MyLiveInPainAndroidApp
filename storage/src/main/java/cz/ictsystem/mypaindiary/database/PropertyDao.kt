@@ -2,7 +2,6 @@ package cz.ictsystem.mypaindiary.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import java.util.*
 
 @Dao
 interface PropertyDao {
@@ -10,7 +9,7 @@ interface PropertyDao {
     fun load(): LiveData<List<PropertyEntity>>
 
     @Query("SELECT * FROM property WHERE name = :name")
-    fun load(name: String): LiveData<List<PropertyEntity>>
+    fun load(name: String): LiveData<PropertyEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(entity: PropertyEntity)
