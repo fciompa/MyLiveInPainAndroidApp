@@ -3,11 +3,7 @@ package cz.ictsystem.mypaindiary.database
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 
 class PropertyDaoTest {
 
@@ -39,41 +35,45 @@ class PropertyDaoTest {
 
     @Test
     fun init() {
-        assertEquals(0, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.load().getValueForTest()?.size)
     }
 
     @Test
     fun insert1() {
-        assertEquals(0, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.load().getValueForTest()?.size)
         dao.insert(PropertyEntity(0, "Property", "Value"))
-        assertEquals(1, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(1, dao.load().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2() {
         dao.insert(PROPERTIES)
-        assertEquals(2, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(2, dao.load().getValueForTest()?.size)
 
     }
 
     @Test
     fun load() {
         dao.insert(PROPERTIES)
-        assert(dao.load().getValueForTest()?.get(0)?.name.equals("Property 01"))
-        assert(dao.load().getValueForTest()?.get(0)?.value.equals("Value 01"))
-        assert(dao.load().getValueForTest()?.get(0)?.id == 2)
+        Assert.assertEquals("Property 01", dao.load().getValueForTest()?.get(0)?.name)
+        Assert.assertEquals("Value 01", dao.load().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, dao.load().getValueForTest()?.get(0)?.id)
     }
 
     @Test
     fun loadByName() {
         dao.insert(PROPERTIES)
-        assert(dao.load("Value 01").getValueForTest()?.name.equals("Property 01"))
-        assert(dao.load("Value 01").getValueForTest()?.value.equals("Value 01"))
-        assert(dao.load("Value 01").getValueForTest()?.id == 2)
-        assert(dao.load("Value 02").getValueForTest()?.name.equals("Property 02"))
-        assert(dao.load("Value 02").getValueForTest()?.value.equals("Value 02"))
-        assert(dao.load("Value 02").getValueForTest()?.id == 1)
+
+        val property01 = dao.load("Property 01").getValueForTest()
+        Assert.assertEquals("Property 01", property01?.name)
+        Assert.assertEquals("Value 01", property01?.value)
+        Assert.assertEquals(2, property01?.id)
+
+        val property02 = dao.load("Property 02").getValueForTest()
+        Assert.assertEquals("Property 02", property02?.name)
+        Assert.assertEquals("Value 02", property02?.value)
+        Assert.assertEquals(1, property02?.id)
     }
 
 }

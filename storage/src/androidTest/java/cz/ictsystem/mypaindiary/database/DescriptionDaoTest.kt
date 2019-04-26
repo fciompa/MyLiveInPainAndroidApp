@@ -3,11 +3,7 @@ package cz.ictsystem.mypaindiary.database
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 
 class DescriptionDaoTest {
 
@@ -39,29 +35,29 @@ class DescriptionDaoTest {
 
     @Test
     fun init() {
-        assertEquals(0, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.load().getValueForTest()?.size)
     }
 
     @Test
     fun insert1() {
-        assertEquals(0, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.load().getValueForTest()?.size)
         dao.insert(DescriptionEntity(0, "Description"))
-        assertEquals(1, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(1, dao.load().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2D() {
         dao.insert(DESCRIPTIONS)
-        assertEquals(2, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(2, dao.load().getValueForTest()?.size)
 
     }
 
     @Test
     fun load() {
         dao.insert(DESCRIPTIONS)
-        assert(dao.load().getValueForTest()?.get(0)?.value.equals("Description 01"))
-        assert(dao.load().getValueForTest()?.get(0)?.id == 2)
+        Assert.assertEquals("Description 01", dao.load().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, dao.load().getValueForTest()?.get(0)?.id)
     }
 
 }

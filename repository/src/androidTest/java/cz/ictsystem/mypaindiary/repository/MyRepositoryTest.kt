@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
 import cz.ictsystem.mypaindiary.database.MyDb
-import junit.framework.Assert.assertEquals
 import org.junit.*
 import java.util.*
 
@@ -68,24 +67,39 @@ class MyRepositoryTest {
 
     @Test
     fun insert1Description() {
-        Assert.assertEquals(0, rep.loadDescription().getValueForTest()?.size)
+        val list1 = rep.loadDescription().getValueForTest()
+        Assert.assertEquals(0, list1?.size)
         rep.insertDescription(Description(0, "Description"))
-        Assert.assertEquals(1, rep.loadDescription().getValueForTest()?.size)
+        val list2 = rep.loadDescription().getValueForTest()
+        Assert.assertEquals(1, list2?.size)
+        Assert.assertEquals("Description", list2?.get(0)?.value)
 
     }
 
     @Test
     fun insert2Description() {
         rep.insertDescriptions(DESCRIPTIONS)
-        Assert.assertEquals(2, rep.loadDescription().getValueForTest()?.size)
-
+        val list = rep.loadDescription().getValueForTest()
+        Assert.assertEquals(2, list?.size)
     }
 
     @Test
     fun loadDescription() {
         rep.insertDescriptions(DESCRIPTIONS)
-        assert(rep.loadDescription().getValueForTest()?.get(0)?.value.equals("Description 01"))
-        assert(rep.loadDescription().getValueForTest()?.get(0)?.id == 2)
+        Assert.assertEquals("Description 01", rep.loadDescription().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, rep.loadDescription().getValueForTest()?.get(0)?.id)
+    }
+
+    @Test
+    fun deleteDescription() {
+        Assert.assertEquals(0, rep.loadDescription().getValueForTest()?.size)
+        rep.insertDescription(Description(0, "Description"))
+        val descriptions = rep.loadDescription().getValueForTest()
+        Assert.assertEquals(1, descriptions?.size)
+        val description = descriptions?.get(0)
+        Assert.assertNotNull(description)
+        if (description != null) rep.deleteDescription(description)
+        Assert.assertEquals(0, rep.loadDescription().getValueForTest()?.size)
     }
 
     @Test
@@ -104,17 +118,19 @@ class MyRepositoryTest {
     @Test
     fun insert2Entries() {
         rep.insertEntries(ENTRIES)
-        assertEquals(9, rep.loadEntries().getValueForTest()?.size)
+        Assert.assertEquals(9, rep.loadEntries().getValueForTest()?.size)
     }
 
     @Test
     fun loadEntries() {
         rep.insertEntries(ENTRIES)
-        assert(rep.loadEntries().getValueForTest()?.get(0)?.entryDate?.time == (Date(2019, 1, 22, 6, 35).time))
-        assert(rep.loadEntries().getValueForTest()?.get(0)?.intensity == 3)
-        assert(rep.loadEntries().getValueForTest()?.get(0)?.description.equals("description 09"))
-        assert(rep.loadEntries().getValueForTest()?.get(0)?.note.equals("note 09"))
-        assert(rep.loadEntries().getValueForTest()?.get(0)?.id == 9)
+        val entry0 = rep.loadEntries().getValueForTest()?.get(0)
+
+        Assert.assertEquals(Date(2019, 1, 22, 6, 35).time, entry0?.entryDate?.time)
+        Assert.assertEquals(3, entry0?.intensity)
+        Assert.assertEquals("description 09", entry0?.description)
+        Assert.assertEquals("note 09", entry0?.note)
+        Assert.assertEquals(7, entry0?.id)
     }
 
     @Test
@@ -124,11 +140,12 @@ class MyRepositoryTest {
             1,
             rep.loadEntries(Date(2019, 1, 21, 5, 30), Date(2019, 1, 21, 5, 30)).getValueForTest()?.size
         )
-        assert(
+        Assert.assertEquals(
+            "description 05",
             rep.loadEntries(
                 Date(2019, 1, 21, 5, 30),
                 Date(2019, 1, 21, 5, 30)
-            ).getValueForTest()?.get(0)?.description.equals("description 08")
+            ).getValueForTest()?.get(0)?.description
         )
     }
 
@@ -137,74 +154,113 @@ class MyRepositoryTest {
         rep.insertEntries(ENTRIES)
         val list = rep.loadEntries(Date(2019, 1, 21), Date(2019, 1, 22)).getValueForTest()
         Assert.assertEquals(3, list?.size)
-        assert(list?.get(0)?.description.equals("description 04"))
-        assert(list?.get(2)?.description.equals("description 06"))
+        Assert.assertEquals("description 04", list?.get(0)?.description)
+        Assert.assertEquals("description 06", list?.get(2)?.description)
+    }
+
+    @Test
+    fun loadByDateInterval3Entries() {
+        rep.insertEntries(ENTRIES)
+        val list = rep.loadEntries(Date(2019, 1, 1), Date(2019, 1, 1)).getValueForTest()
+        Assert.assertEquals(0, list?.size)
     }
 
     @Test
     fun initLocation() {
-        assertEquals(0, rep.loadLocation().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.loadLocation().getValueForTest()?.size)
     }
 
     @Test
     fun insert1Location() {
-        assertEquals(0, rep.loadLocation().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.loadLocation().getValueForTest()?.size)
         rep.insertLocation(Location(0, "Location"))
-        assertEquals(1, rep.loadLocation().getValueForTest()?.size)
+        Assert.assertEquals(1, rep.loadLocation().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2Location() {
         rep.insertLocations(LOCATIONS)
-        assertEquals(2, rep.loadLocation().getValueForTest()?.size)
+        Assert.assertEquals(2, rep.loadLocation().getValueForTest()?.size)
 
     }
 
     @Test
     fun loadLocation() {
         rep.insertLocations(LOCATIONS)
-        assert(rep.loadLocation().getValueForTest()?.get(0)?.value.equals("Location 01"))
-        assert(rep.loadLocation().getValueForTest()?.get(0)?.id == 2)
+        Assert.assertEquals("Location 01", rep.loadLocation().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, rep.loadLocation().getValueForTest()?.get(0)?.id)
+    }
+
+    @Test
+    fun deleteLocation() {
+        Assert.assertEquals(0, rep.loadLocation().getValueForTest()?.size)
+        rep.insertLocation(Location(0, "Location"))
+        val locations = rep.loadLocation().getValueForTest()
+        Assert.assertEquals(1, locations?.size)
+        val location = locations?.get(0)
+        Assert.assertNotNull(location)
+        if (location != null) rep.deleteLocation(location)
+        Assert.assertEquals(0, rep.loadLocation().getValueForTest()?.size)
     }
 
     @Test
     fun initProperty() {
-        assertEquals(0, rep.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.loadProperties().getValueForTest()?.size)
     }
 
     @Test
     fun insert1Property() {
-        assertEquals(0, rep.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.loadProperties().getValueForTest()?.size)
         rep.insertProperty(Property(0, "Property", "Value"))
-        assertEquals(1, rep.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(1, rep.loadProperties().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2Property() {
         rep.insertProperties(PROPERTIES)
-        assertEquals(2, rep.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(2, rep.loadProperties().getValueForTest()?.size)
 
     }
 
     @Test
     fun loadProperty() {
         rep.insertProperties(PROPERTIES)
-        assert(rep.loadProperties().getValueForTest()?.get(0)?.name.equals("Property 01"))
-        assert(rep.loadProperties().getValueForTest()?.get(0)?.value.equals("Value 01"))
-        assert(rep.loadProperties().getValueForTest()?.get(0)?.id == 2)
+        Assert.assertEquals("Property 01", rep.loadProperties().getValueForTest()?.get(0)?.name)
+        Assert.assertEquals("Value 01", rep.loadProperties().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, rep.loadProperties().getValueForTest()?.get(0)?.id)
     }
 
     @Test
-    fun loadByNameProperty() {
+    fun loadByNameProperty1() {
         rep.insertProperties(PROPERTIES)
-        assert(rep.loadProperties("Value 01").getValueForTest()?.name.equals("Property 01"))
-        assert(rep.loadProperties("Value 01").getValueForTest()?.value.equals("Value 01"))
-        assert(rep.loadProperties("Value 01").getValueForTest()?.id == 2)
-        assert(rep.loadProperties("Value 02").getValueForTest()?.name.equals("Property 02"))
-        assert(rep.loadProperties("Value 02").getValueForTest()?.value.equals("Value 02"))
-        assert(rep.loadProperties("Value 02").getValueForTest()?.id == 1)
+        val property01 = rep.loadProperties("Property 01").getValueForTest()
+        Assert.assertEquals("Property 01", property01?.name)
+        Assert.assertEquals("Value 01", property01?.value)
+        Assert.assertEquals(2, property01?.id)
+        val property02 = rep.loadProperties("Property 02").getValueForTest()
+        Assert.assertEquals("Property 02", property02?.name)
+        Assert.assertEquals("Value 02", property02?.value)
+        Assert.assertEquals(1, property02?.id)
+    }
+
+    @Test
+    fun loadByNameProperty2() {
+        rep.insertProperties(PROPERTIES)
+        Assert.assertNull(rep.loadProperties("Property").getValueForTest())
+    }
+
+    @Test
+    fun deleteProperty() {
+        Assert.assertEquals(0, rep.loadProperties().getValueForTest()?.size)
+        rep.insertProperty(Property(0, "Name", "Value"))
+        val properties = rep.loadProperties().getValueForTest()
+        Assert.assertEquals(1, properties?.size)
+        val property = properties?.get(0)
+        Assert.assertNotNull(property)
+        if (property != null) rep.deleteProperty(property)
+        Assert.assertEquals(0, rep.loadProperties().getValueForTest()?.size)
     }
 
 }

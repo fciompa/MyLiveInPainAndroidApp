@@ -17,4 +17,6 @@ data class Entry(
         e.description,
         e.note
     )
+
+    fun getEntity() = EntryEntity(id, entryDate, intensity, description, note)
 }

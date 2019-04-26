@@ -17,12 +17,12 @@ class MyRepository(db: MyDb) : Repository {
         return Transformations.map(
             entryDao.load()
         ) {
-            val arrayList = ArrayList<Entry>()
+            val entries = ArrayList<Entry>()
             it.forEach {
-                arrayList.add(Entry())
+                entries.add(Entry(it))
             }
 
-            arrayList
+            entries
         }
     }
 
@@ -30,102 +30,156 @@ class MyRepository(db: MyDb) : Repository {
         return Transformations.map(
             entryDao.load(from, to)
         ) {
-            val arrayList = ArrayList<Entry>()
+            val entries = ArrayList<Entry>()
             it.forEach {
-                arrayList.add(Entry())
+                entries.add(Entry(it))
             }
-
-            arrayList
+            entries
         }
     }
 
     override fun insertEntry(entry: Entry) {
-        entryDao.insert(EntryEntity(entry.id, entry.entryDate, entry.intensity, entry.description, entry.note))
+        entryDao.insert(entry.getEntity())
     }
 
     override fun insertEntries(entries: List<Entry>) {
         val entities = ArrayList<EntryEntity>()
         entries.forEach {
-            entities.add(EntryEntity(it.id, it.entryDate, it.intensity, it.description, it.note))
+            entities.add(it.getEntity())
         }
 
         entryDao.insert(entities)
     }
 
     override fun deleteEntry(entry: Entry) {
-        entryDao.delete(EntryEntity(entry.id, entry.entryDate, entry.intensity, entry.description, entry.note))
+        entryDao.delete(entry.getEntity())
     }
 
     override fun deleteEntries(entries: List<Entry>) {
         val entities = ArrayList<EntryEntity>()
-        entities.forEach {
-            entities.add(EntryEntity(it.id, it.entryDate, it.intensity, it.description, it.note))
+        entries.forEach {
+            entities.add(it.getEntity())
         }
 
         entryDao.delete(entities)
     }
 
     override fun loadDescription(): LiveData<List<Description>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Transformations.map(
+            descriptionDao.load()
+        ) {
+            val descriptions = ArrayList<Description>()
+            it.forEach {
+                descriptions.add(Description(it))
+            }
+
+            descriptions
+        }
     }
 
     override fun insertDescription(description: Description) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        descriptionDao.insert(description.getEntity())
     }
 
     override fun insertDescriptions(descriptions: List<Description>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val entities = ArrayList<DescriptionEntity>()
+        descriptions.forEach {
+            entities.add(it.getEntity())
+        }
+
+        descriptionDao.insert(entities)
     }
 
     override fun deleteDescription(description: Description) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        descriptionDao.delete(description.getEntity())
     }
 
     override fun deleteDescriptions(descriptions: List<Description>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val entities = ArrayList<DescriptionEntity>()
+        descriptions.forEach {
+            entities.add(it.getEntity())
+        }
+
+        descriptionDao.delete(entities)
     }
 
     override fun loadLocation(): LiveData<List<Location>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Transformations.map(
+            locationDao.load()
+        ) {
+            val locations = ArrayList<Location>()
+            it.forEach {
+                locations.add(Location(it))
+            }
+            locations
+        }
     }
 
     override fun insertLocation(location: Location) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        locationDao.insert(location.getEntity())
     }
 
     override fun insertLocations(locations: List<Location>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val entries = ArrayList<LocationEntity>()
+        locations.forEach {
+            entries.add(it.getEntity())
+        }
+
+        locationDao.insert(entries)
     }
 
     override fun deleteLocation(location: Location) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        locationDao.delete(location.getEntity())
     }
 
     override fun deleteLocations(locations: List<Location>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val entries = ArrayList<LocationEntity>()
+        locations.forEach {
+            entries.add(it.getEntity())
+        }
+
+        locationDao.delete(entries)
     }
 
     override fun loadProperties(): LiveData<List<Property>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Transformations.map(propertyDao.load()) {
+            val properties = ArrayList<Property>()
+            it.forEach {
+                properties.add(Property(it))
+            }
+            properties
+        }
     }
 
     override fun loadProperties(name: String): LiveData<Property> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Transformations.map(propertyDao.load(name)) {
+            if (it != null) Property(it) else null
+        }
     }
 
     override fun insertProperty(property: Property) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        propertyDao.insert(property.getEntity())
     }
 
     override fun insertProperties(properties: List<Property>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val entries = ArrayList<PropertyEntity>()
+        properties.forEach {
+            entries.add(it.getEntity())
+        }
+
+        propertyDao.insert(entries)
     }
 
     override fun deleteProperty(property: Property) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        propertyDao.delete(property.getEntity())
     }
 
     override fun deleteProperties(properties: List<Property>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val entries = ArrayList<PropertyEntity>()
+        properties.forEach {
+            entries.add(it.getEntity())
+        }
+
+        propertyDao.delete(entries)
     }
 }
