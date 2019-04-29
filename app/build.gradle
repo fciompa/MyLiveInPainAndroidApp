@@ -33,7 +33,7 @@ dependencies {
     implementation project(path: ':domain')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "com.android.support.constraint:constraint-layout:2.0.0-alpha4"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_fragment"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_fragment"
