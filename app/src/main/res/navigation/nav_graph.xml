@@ -9,7 +9,7 @@
     <fragment
             android:id="@+id/nav_records"
             android:name="cz.ictsystem.mypaindiary.records.ViewRecords"
-            android:label="fragment_entries"
+            android:label="@string/frg_records_title"
             tools:layout="@layout/view_records">
 
         <action
@@ -23,13 +23,13 @@
     <fragment
             android:id="@+id/nav_reports"
             android:name="cz.ictsystem.mypaindiary.reports.ViewReports"
-            android:label="fragment_reports"
+            android:label="@string/frg_reports_title"
             tools:layout="@layout/view_reports"/>
 
     <fragment
             android:id="@+id/nav_others"
             android:name="cz.ictsystem.mypaindiary.others.ViewOthers"
-            android:label="view_others"
+            android:label="@string/frg_others_title"
             tools:layout="@layout/view_others">
 
         <action
@@ -45,13 +45,13 @@
     <fragment
             android:id="@+id/nav_description_list"
             android:name="cz.ictsystem.mypaindiary.description.frgDescriptionList"
-            android:label="fragment_frg_description_list"
+            android:label="@string/frg_description_list_title"
             tools:layout="@layout/view_description_list"/>
 
     <fragment
             android:id="@+id/nav_location_list"
             android:name="cz.ictsystem.mypaindiary.location.frgLocationList"
-            android:label="fragment_frg_location_list"
+            android:label="@string/frg_location_list_title"
             tools:layout="@layout/view_location_list"/>
 
 </navigation>

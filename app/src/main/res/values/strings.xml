@@ -3,10 +3,9 @@
     <string name="nav_title_records">Records</string>
     <string name="nav_title_reports">Report</string>
     <string name="nav_title_others">Others</string>
-    <string name="frg_records_title">Records</string>
-    <string name="frg_reports_title">Reports</string>
-    <string name="frg_others_title">Others</string>
+    <string name="frg_records_title">My Pain Diary</string>
+    <string name="frg_reports_title">My Pain Diary - Reports</string>
+    <string name="frg_others_title">My Pain Diary - Others</string>
     <string name="frg_description_list_title">Description list</string>
     <string name="frg_location_list_title">Location list</string>
-
 </resources>

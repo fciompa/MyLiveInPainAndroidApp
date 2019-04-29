@@ -22,5 +22,4 @@ class frgDescriptionList : Fragment() {
         return inflater.inflate(R.layout.view_description_list, container, false)
     }
 
-
 }

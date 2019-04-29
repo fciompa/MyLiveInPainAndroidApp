@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import cz.ictsystem.mypaindiary.R
-import kotlinx.android.synthetic.main.view_others.*
+import cz.ictsystem.mypaindiary.databinding.ViewOthersBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -16,23 +17,27 @@ import kotlinx.android.synthetic.main.view_others.*
  */
 class ViewOthers : Fragment() {
 
+    lateinit var binding: ViewOthersBinding
+    lateinit var navController: NavController
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.view_others, container, false)
+        binding = ViewOthersBinding.inflate(inflater, container, false)
+        navController = findNavController()
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        buttonDescriptionList.setOnClickListener {
-            it.findNavController().navigate(R.id.action_nav_others_to_nav_description_list)
+        binding.buttonDescriptionList.setOnClickListener {
+            navController.navigate(R.id.action_nav_others_to_nav_description_list)
         }
 
-        buttonLocationList.setOnClickListener {
-            it.findNavController().navigate(R.id.action_nav_others_to_nav_location_list)
+        binding.buttonLocationList.setOnClickListener {
+            navController.navigate(R.id.action_nav_others_to_nav_location_list)
         }
 
     }
