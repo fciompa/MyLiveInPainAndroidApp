@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">My Pain Diary</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="nav_title_records">Records</string>
+    <string name="nav_title_reports">Report</string>
+    <string name="nav_title_others">Others</string>
+    <string name="frg_records_title">Records</string>
+    <string name="frg_reports_title">Reports</string>
+    <string name="frg_others_title">Others</string>
+    <string name="frg_description_list_title">Description list</string>
+    <string name="frg_location_list_title">Location list</string>
+
 </resources>

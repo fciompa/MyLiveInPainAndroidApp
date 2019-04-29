@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph"
+        app:startDestination="@id/nav_records">
+
+    <fragment
+            android:id="@+id/nav_records"
+            android:name="cz.ictsystem.mypaindiary.records.ViewRecords"
+            android:label="fragment_entries"
+            tools:layout="@layout/view_records">
+
+        <action
+                android:id="@+id/action_recordsFrg_to_reportsFrg"
+                app:destination="@id/nav_reports"/>
+        <action
+                android:id="@+id/action_nav_records_to_viewOthers"
+                app:destination="@id/nav_others"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/nav_reports"
+            android:name="cz.ictsystem.mypaindiary.reports.ViewReports"
+            android:label="fragment_reports"
+            tools:layout="@layout/view_reports"/>
+
+    <fragment
+            android:id="@+id/nav_others"
+            android:name="cz.ictsystem.mypaindiary.others.ViewOthers"
+            android:label="view_others"
+            tools:layout="@layout/view_others">
+
+        <action
+                android:id="@+id/action_nav_others_to_nav_description_list"
+                app:destination="@id/nav_description_list"/>
+
+        <action
+                android:id="@+id/action_nav_others_to_nav_location_list"
+                app:destination="@id/nav_location_list"/>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/nav_description_list"
+            android:name="cz.ictsystem.mypaindiary.description.frgDescriptionList"
+            android:label="fragment_frg_description_list"
+            tools:layout="@layout/view_description_list"/>
+
+    <fragment
+            android:id="@+id/nav_location_list"
+            android:name="cz.ictsystem.mypaindiary.location.frgLocationList"
+            android:label="fragment_frg_location_list"
+            tools:layout="@layout/view_location_list"/>
+
+</navigation>
