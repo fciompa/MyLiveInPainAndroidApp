@@ -4,19 +4,19 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/nav_graph"
-        app:startDestination="@id/nav_records">
+        app:startDestination="@id/nav_entries">
 
     <fragment
-            android:id="@+id/nav_records"
-            android:name="cz.ictsystem.mypaindiary.records.ViewRecords"
-            android:label="@string/frg_records_title"
-            tools:layout="@layout/view_records">
+            android:id="@+id/nav_entries"
+            android:name="cz.ictsystem.mypaindiary.entries.ViewEntries"
+            android:label="@string/frg_entries_title"
+            tools:layout="@layout/view_entries">
 
         <action
-                android:id="@+id/action_recordsFrg_to_reportsFrg"
+                android:id="@+id/action_entriesFrg_to_reportsFrg"
                 app:destination="@id/nav_reports"/>
         <action
-                android:id="@+id/action_nav_records_to_viewOthers"
+                android:id="@+id/action_nav_entries_to_viewOthers"
                 app:destination="@id/nav_others"/>
     </fragment>
 

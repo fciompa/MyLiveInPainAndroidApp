@@ -6,13 +6,13 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".records.ViewRecords"
+        tools:context=".entries.ViewEntries"
 >
 
     <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="@string/frg_records_title"
+            android:text="@string/frg_entries_title"
             android:id="@+id/textView4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

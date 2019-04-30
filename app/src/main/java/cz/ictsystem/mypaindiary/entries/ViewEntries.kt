@@ -1,4 +1,4 @@
-package cz.ictsystem.mypaindiary.records
+package cz.ictsystem.mypaindiary.entries
 
 
 import android.os.Bundle
@@ -12,14 +12,14 @@ import cz.ictsystem.mypaindiary.R
  * A simple [Fragment] subclass.
  *
  */
-class ViewRecords : Fragment() {
+class ViewEntries : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.view_records, container, false)
+        return inflater.inflate(R.layout.view_entries, container, false)
     }
 
 

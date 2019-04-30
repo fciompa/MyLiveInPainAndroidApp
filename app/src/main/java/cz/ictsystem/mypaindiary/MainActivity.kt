@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_records, R.id.nav_reports, R.id.nav_others))
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_entries, R.id.nav_reports, R.id.nav_others))
 
         navController = findNavController(R.id.fragment)
 
