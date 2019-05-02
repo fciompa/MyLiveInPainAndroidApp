@@ -2,7 +2,7 @@ package cz.ictsystem.mypaindiary.repository
 
 import cz.ictsystem.mypaindiary.database.LocationEntity
 
-data class Location(
+data class LocationRep(
     val id: Int = 0,
     val value: String = ""
 ) {

@@ -2,7 +2,7 @@ package cz.ictsystem.mypaindiary.repository
 
 import cz.ictsystem.mypaindiary.database.PropertyEntity
 
-data class Property(
+data class PropertyRep(
     val id: Int = 0,
     val name: String = "",
     val value: String = ""

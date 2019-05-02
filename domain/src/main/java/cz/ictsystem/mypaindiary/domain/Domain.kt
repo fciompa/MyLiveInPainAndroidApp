@@ -1,7 +1,8 @@
 package cz.ictsystem.mypaindiary.domain
 
-import cz.ictsystem.mypaindiary.repository.Repository
+import androidx.lifecycle.LiveData
+import cz.ictsystem.mypaindiary.domain.entity.Entry
 
-class Domain(val rep: Repository) {
-
+interface Domain {
+    fun loadEntries(): LiveData<List<Entry>>
 }

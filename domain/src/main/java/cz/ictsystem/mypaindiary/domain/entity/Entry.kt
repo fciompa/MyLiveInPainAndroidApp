@@ -1,6 +1,6 @@
-package cz.ictsystem.mypaindiary.repository
+package cz.ictsystem.mypaindiary.domain.entity
 
-import cz.ictsystem.mypaindiary.database.EntryEntity
+import cz.ictsystem.mypaindiary.repository.EntryRep
 import java.util.*
 
 data class Entry(
@@ -10,7 +10,7 @@ data class Entry(
     val description: String = "",
     val note: String = ""
 ) {
-    constructor(e: EntryEntity) : this(
+    constructor(e: EntryRep) : this(
         e.id,
         e.entryDate,
         e.intensity,
@@ -18,5 +18,5 @@ data class Entry(
         e.note
     )
 
-    fun getEntity() = EntryEntity(id, entryDate, intensity, description, note)
+    fun getEntity() = EntryRep(id, entryDate, intensity, description, note)
 }

@@ -4,30 +4,30 @@ import androidx.lifecycle.LiveData
 import java.util.*
 
 interface Repository {
-    fun loadEntries(): LiveData<List<Entry>>
-    fun loadEntries(from: Date, to: Date): LiveData<List<Entry>>
-    fun insertEntry(entry: Entry)
-    fun insertEntries(entries: List<Entry>)
-    fun deleteEntry(entry: Entry)
-    fun deleteEntries(entries: List<Entry>)
+    fun loadEntries(): LiveData<List<EntryRep>>
+    fun loadEntries(from: Date, to: Date): LiveData<List<EntryRep>>
+    fun insertEntry(entry: EntryRep)
+    fun insertEntries(entries: List<EntryRep>)
+    fun deleteEntry(entry: EntryRep)
+    fun deleteEntries(entries: List<EntryRep>)
 
-    fun loadDescription(): LiveData<List<Description>>
-    fun insertDescription(description: Description)
-    fun insertDescriptions(descriptions: List<Description>)
-    fun deleteDescription(description: Description)
-    fun deleteDescriptions(descriptions: List<Description>)
+    fun loadDescription(): LiveData<List<DescriptionRep>>
+    fun insertDescription(description: DescriptionRep)
+    fun insertDescriptions(descriptions: List<DescriptionRep>)
+    fun deleteDescription(description: DescriptionRep)
+    fun deleteDescriptions(descriptions: List<DescriptionRep>)
 
-    fun loadLocation(): LiveData<List<Location>>
-    fun insertLocation(location: Location)
-    fun insertLocations(locations: List<Location>)
-    fun deleteLocation(location: Location)
-    fun deleteLocations(locations: List<Location>)
+    fun loadLocation(): LiveData<List<LocationRep>>
+    fun insertLocation(location: LocationRep)
+    fun insertLocations(locations: List<LocationRep>)
+    fun deleteLocation(location: LocationRep)
+    fun deleteLocations(locations: List<LocationRep>)
 
-    fun loadProperties(): LiveData<List<Property>>
-    fun loadProperties(name: String): LiveData<Property>
-    fun insertProperty(property: Property)
-    fun insertProperties(properties: List<Property>)
-    fun deleteProperty(property: Property)
-    fun deleteProperties(properties: List<Property>)
+    fun loadProperties(): LiveData<List<PropertyRep>>
+    fun loadProperties(name: String): LiveData<PropertyRep>
+    fun insertProperty(property: PropertyRep)
+    fun insertProperties(properties: List<PropertyRep>)
+    fun deleteProperty(property: PropertyRep)
+    fun deleteProperties(properties: List<PropertyRep>)
 
 }

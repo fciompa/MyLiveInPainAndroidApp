@@ -2,7 +2,7 @@ package cz.ictsystem.mypaindiary.repository
 
 import cz.ictsystem.mypaindiary.database.DescriptionEntity
 
-data class Description(
+data class DescriptionRep(
     val id: Int = 0,
     val value: String = ""
 ) {
