@@ -151,7 +151,7 @@ class AppRepository(db: MyDb) : Repository {
         }
     }
 
-    override fun loadProperties(name: String): LiveData<PropertyRep> {
+    override fun loadProperty(name: String): LiveData<PropertyRep> {
         return Transformations.map(propertyDao.load(name)) {
             if (it != null) PropertyRep(it) else null
         }

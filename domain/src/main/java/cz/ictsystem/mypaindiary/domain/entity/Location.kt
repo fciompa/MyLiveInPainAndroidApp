@@ -11,6 +11,6 @@ data class Location(
         l.value
     )
 
-    fun getEntity() = LocationRep(id, value)
+    fun getRep() = LocationRep(id, value)
 
 }

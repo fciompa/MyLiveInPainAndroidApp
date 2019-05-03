@@ -235,11 +235,11 @@ class AppRepositoryTest {
     @Test
     fun loadByNameProperty1() {
         rep.insertProperties(PROPERTIES)
-        val property01 = rep.loadProperties("PropertyRep 01").getValueForTest()
+        val property01 = rep.loadProperty("PropertyRep 01").getValueForTest()
         Assert.assertEquals("PropertyRep 01", property01?.name)
         Assert.assertEquals("Value 01", property01?.value)
         Assert.assertEquals(2, property01?.id)
-        val property02 = rep.loadProperties("PropertyRep 02").getValueForTest()
+        val property02 = rep.loadProperty("PropertyRep 02").getValueForTest()
         Assert.assertEquals("PropertyRep 02", property02?.name)
         Assert.assertEquals("Value 02", property02?.value)
         Assert.assertEquals(1, property02?.id)
@@ -248,7 +248,7 @@ class AppRepositoryTest {
     @Test
     fun loadByNameProperty2() {
         rep.insertProperties(PROPERTIES)
-        Assert.assertNull(rep.loadProperties("PropertyRep").getValueForTest())
+        Assert.assertNull(rep.loadProperty("PropertyRep").getValueForTest())
     }
 
     @Test

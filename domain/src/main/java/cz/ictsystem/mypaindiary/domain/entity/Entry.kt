@@ -18,5 +18,5 @@ data class Entry(
         e.note
     )
 
-    fun getEntity() = EntryRep(id, entryDate, intensity, description, note)
+    fun getRep() = EntryRep(id, entryDate, intensity, description, note)
 }

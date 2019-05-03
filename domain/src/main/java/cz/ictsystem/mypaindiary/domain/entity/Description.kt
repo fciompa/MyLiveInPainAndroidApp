@@ -12,5 +12,5 @@ data class Description(
         d.value
     )
 
-    fun getEntity() = DescriptionRep(id, value)
+    fun getRep() = DescriptionRep(id, value)
 }

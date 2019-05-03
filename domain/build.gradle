@@ -35,8 +35,11 @@ dependencies {
 
     testImplementation "junit:junit:$junit_version"
 
+    androidTestCompile project(path: ':storage')
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+    androidTestImplementation "androidx.arch.core:core-testing:$core_testing_version"
+    implementation "androidx.room:room-runtime:$room_version" //!!! only for testing purpose
 
 }
 
