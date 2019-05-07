@@ -1,4 +1,4 @@
-package cz.ictsystem.mypaindiary.database
+package cz.ictsystem.mypaindiary.storage
 
 import android.content.Context
 import androidx.room.Database

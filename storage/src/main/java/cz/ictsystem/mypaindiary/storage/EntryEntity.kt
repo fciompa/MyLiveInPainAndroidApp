@@ -1,6 +1,8 @@
-package cz.ictsystem.mypaindiary.database
+package cz.ictsystem.mypaindiary.storage
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(tableName = "entry")

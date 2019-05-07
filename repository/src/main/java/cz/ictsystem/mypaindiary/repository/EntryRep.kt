@@ -1,6 +1,6 @@
 package cz.ictsystem.mypaindiary.repository
 
-import cz.ictsystem.mypaindiary.database.EntryEntity
+import cz.ictsystem.mypaindiary.storage.EntryEntity
 import java.util.*
 
 data class EntryRep(

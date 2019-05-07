@@ -1,4 +1,4 @@
-package cz.ictsystem.mypaindiary.database
+package cz.ictsystem.mypaindiary.storage
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

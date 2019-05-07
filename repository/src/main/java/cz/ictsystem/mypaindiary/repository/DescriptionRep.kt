@@ -1,6 +1,6 @@
 package cz.ictsystem.mypaindiary.repository
 
-import cz.ictsystem.mypaindiary.database.DescriptionEntity
+import cz.ictsystem.mypaindiary.storage.DescriptionEntity
 
 data class DescriptionRep(
     val id: Int = 0,

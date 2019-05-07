@@ -2,7 +2,7 @@ package cz.ictsystem.mypaindiary.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import cz.ictsystem.mypaindiary.database.*
+import cz.ictsystem.mypaindiary.storage.*
 import java.util.*
 import kotlin.collections.ArrayList
 

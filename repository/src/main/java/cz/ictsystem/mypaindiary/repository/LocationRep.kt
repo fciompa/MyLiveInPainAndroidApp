@@ -1,6 +1,6 @@
 package cz.ictsystem.mypaindiary.repository
 
-import cz.ictsystem.mypaindiary.database.LocationEntity
+import cz.ictsystem.mypaindiary.storage.LocationEntity
 
 data class LocationRep(
     val id: Int = 0,

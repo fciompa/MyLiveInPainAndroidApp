@@ -1,8 +1,9 @@
-package cz.ictsystem.mypaindiary.database
+package cz.ictsystem.mypaindiary.storage
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
+import cz.ictsystem.mypaindiary.storage.MyDb
 import org.junit.*
 
 class PropertyDaoTest {

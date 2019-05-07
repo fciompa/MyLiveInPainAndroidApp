@@ -1,6 +1,6 @@
 package cz.ictsystem.mypaindiary.repository
 
-import cz.ictsystem.mypaindiary.database.PropertyEntity
+import cz.ictsystem.mypaindiary.storage.PropertyEntity
 
 data class PropertyRep(
     val id: Int = 0,

@@ -3,8 +3,8 @@ package cz.ictsystem.mypaindiary.domain
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
-import cz.ictsystem.mypaindiary.database.MyDb
 import cz.ictsystem.mypaindiary.repository.AppRepository
+import cz.ictsystem.mypaindiary.storage.MyDb
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule

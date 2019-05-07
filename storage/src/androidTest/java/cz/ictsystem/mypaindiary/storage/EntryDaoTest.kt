@@ -1,8 +1,9 @@
-package cz.ictsystem.mypaindiary.database
+package cz.ictsystem.mypaindiary.storage
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
+import cz.ictsystem.mypaindiary.storage.MyDb
 import org.junit.*
 import java.util.*
 
@@ -51,7 +52,15 @@ class EntryDaoTest {
     @Test
     fun insert1() {
         Assert.assertEquals(0, dao.loadEntries().getValueForTest()?.size)
-        dao.insertEntry(EntryEntity(0, Date(2019, 1, 20, 4, 35), 1, "description", "note"))
+        dao.insertEntry(
+            EntryEntity(
+                0,
+                Date(2019, 1, 20, 4, 35),
+                1,
+                "description",
+                "note"
+            )
+        )
         Assert.assertEquals(1, dao.loadEntries().getValueForTest()?.size)
 
     }
