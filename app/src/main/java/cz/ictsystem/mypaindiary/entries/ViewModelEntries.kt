@@ -2,8 +2,12 @@ package cz.ictsystem.mypaindiary.entries
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import cz.ictsystem.mypaindiary.domain.Domain
 import cz.ictsystem.mypaindiary.domain.entity.Entry
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ViewModelEntries(domain: Domain) : ViewModel() {
 
@@ -26,4 +30,12 @@ class ViewModelEntries(domain: Domain) : ViewModel() {
 //            return data
 //        }
     val entries: LiveData<List<Entry>> = domain.loadEntries()
+
+    fun loadData() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+
+            }
+        }
+    }
 }

@@ -13,7 +13,7 @@ class LocationDaoTest {
     )
 
     private lateinit var db: MyDb
-    private lateinit var dao: LocationDao
+    private lateinit var dao: MyDao
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -25,7 +25,7 @@ class LocationDaoTest {
             context, MyDb::class.java
         ).build()
 
-        dao = db.locationDao
+        dao = db.dao
     }
 
     @After
@@ -35,29 +35,29 @@ class LocationDaoTest {
 
     @Test
     fun init() {
-        Assert.assertEquals(0, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.loadLocations().getValueForTest()?.size)
     }
 
     @Test
     fun insert1() {
-        Assert.assertEquals(0, dao.load().getValueForTest()?.size)
-        dao.insert(LocationEntity(0, "Location"))
-        Assert.assertEquals(1, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.loadLocations().getValueForTest()?.size)
+        dao.insertLocation(LocationEntity(0, "Location"))
+        Assert.assertEquals(1, dao.loadLocations().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2() {
-        dao.insert(LOCATIONS)
-        Assert.assertEquals(2, dao.load().getValueForTest()?.size)
+        dao.insertLocations(LOCATIONS)
+        Assert.assertEquals(2, dao.loadLocations().getValueForTest()?.size)
 
     }
 
     @Test
     fun load() {
-        dao.insert(LOCATIONS)
-        Assert.assertEquals("Location 01", dao.load().getValueForTest()?.get(0)?.value)
-        Assert.assertEquals(2, dao.load().getValueForTest()?.get(0)?.id)
+        dao.insertLocations(LOCATIONS)
+        Assert.assertEquals("Location 01", dao.loadLocations().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, dao.loadLocations().getValueForTest()?.get(0)?.id)
     }
 
 }

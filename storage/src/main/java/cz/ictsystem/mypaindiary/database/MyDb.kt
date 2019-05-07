@@ -13,10 +13,7 @@ private lateinit var INSTANCE: MyDb
 @Database(entities = [EntryEntity::class, LocationEntity::class, DescriptionEntity::class, PropertyEntity::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class MyDb  : RoomDatabase() {
-    abstract val entryDao: EntryDao
-    abstract val descriptionDao: DescriptionDao
-    abstract val locationDao: LocationDao
-    abstract val propertyDao: PropertyDao
+    abstract val dao: MyDao
 
     companion object {
         fun getInstance(context: Context): MyDb {

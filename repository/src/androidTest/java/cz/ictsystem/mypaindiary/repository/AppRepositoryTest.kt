@@ -52,7 +52,7 @@ class AppRepositoryTest {
             MyDb::class.java
         ).build()
 
-        rep = AppRepository(db)
+        rep = AppRepository(db.dao)
     }
 
     @After

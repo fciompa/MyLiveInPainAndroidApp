@@ -23,7 +23,7 @@ class EntryDaoTest {
     )
 
     private lateinit var db: MyDb
-    private lateinit var dao: EntryDao
+    private lateinit var dao: MyDao
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -35,7 +35,7 @@ class EntryDaoTest {
             context, MyDb::class.java
         ).build()
 
-        dao = db.entryDao
+        dao = db.dao
     }
 
     @After
@@ -45,40 +45,43 @@ class EntryDaoTest {
 
     @Test
     fun init() {
-        Assert.assertEquals(0, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.loadEntries().getValueForTest()?.size)
     }
 
     @Test
     fun insert1() {
-        Assert.assertEquals(0, dao.load().getValueForTest()?.size)
-        dao.insert(EntryEntity(0, Date(2019, 1, 20, 4, 35), 1, "description", "note"))
-        Assert.assertEquals(1, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.loadEntries().getValueForTest()?.size)
+        dao.insertEntry(EntryEntity(0, Date(2019, 1, 20, 4, 35), 1, "description", "note"))
+        Assert.assertEquals(1, dao.loadEntries().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2() {
-        dao.insert(ENTRIES)
-        Assert.assertEquals(9, dao.load().getValueForTest()?.size)
+        dao.insertEntries(ENTRIES)
+        Assert.assertEquals(9, dao.loadEntries().getValueForTest()?.size)
 
-    }
+    };
 
     @Test
     fun load() {
-        dao.insert(ENTRIES)
-        Assert.assertEquals(Date(2019, 1, 22, 6, 35).time, dao.load().getValueForTest()?.get(0)?.entryDate?.time)
-        Assert.assertEquals(3, dao.load().getValueForTest()?.get(0)?.intensity)
-        Assert.assertEquals("description 09", dao.load().getValueForTest()?.get(0)?.description)
-        Assert.assertEquals("note 09", dao.load().getValueForTest()?.get(0)?.note)
-        Assert.assertEquals(7, dao.load().getValueForTest()?.get(0)?.id)
+        dao.insertEntries(ENTRIES)
+        Assert.assertEquals(Date(2019, 1, 22, 6, 35).time, dao.loadEntries().getValueForTest()?.get(0)?.entryDate?.time)
+        Assert.assertEquals(3, dao.loadEntries().getValueForTest()?.get(0)?.intensity)
+        Assert.assertEquals("description 09", dao.loadEntries().getValueForTest()?.get(0)?.description)
+        Assert.assertEquals("note 09", dao.loadEntries().getValueForTest()?.get(0)?.note)
+        Assert.assertEquals(7, dao.loadEntries().getValueForTest()?.get(0)?.id)
     }
 
     @Test
     fun loadByDateInterval1() {
-        dao.insert(ENTRIES)
-        Assert.assertEquals(1, dao.load(Date(2019, 1, 21, 5, 30), Date(2019, 1, 21, 5, 30)).getValueForTest()?.size)
+        dao.insertEntries(ENTRIES)
+        Assert.assertEquals(
+            1,
+            dao.loadEntries(Date(2019, 1, 21, 5, 30), Date(2019, 1, 21, 5, 30)).getValueForTest()?.size
+        )
         assert(
-            dao.load(
+            dao.loadEntries(
                 Date(2019, 1, 21, 5, 30),
                 Date(2019, 1, 21, 5, 30)
             ).getValueForTest()?.get(0)?.description.equals("description 08")
@@ -87,8 +90,8 @@ class EntryDaoTest {
 
     @Test
     fun loadByDateInterval2() {
-        dao.insert(ENTRIES)
-        val list = dao.load(Date(2019, 1, 21), Date(2019, 1, 22)).getValueForTest()
+        dao.insertEntries(ENTRIES)
+        val list = dao.loadEntries(Date(2019, 1, 21), Date(2019, 1, 22)).getValueForTest()
         Assert.assertEquals(3, list?.size)
         Assert.assertEquals("description 04", list?.get(0)?.description)
         Assert.assertEquals("description 06", list?.get(2)?.description)

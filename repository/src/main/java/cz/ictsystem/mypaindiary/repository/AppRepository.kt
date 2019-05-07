@@ -6,16 +6,11 @@ import cz.ictsystem.mypaindiary.database.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AppRepository(db: MyDb) : Repository {
-
-    private val descriptionDao: DescriptionDao = db.descriptionDao
-    private val entryDao: EntryDao = db.entryDao
-    private val locationDao: LocationDao = db.locationDao
-    private val propertyDao: PropertyDao = db.propertyDao
+class AppRepository(private val dao: MyDao) : Repository {
 
     override fun loadEntries(): LiveData<List<EntryRep>> {
         return Transformations.map(
-            entryDao.load()
+            dao.loadEntries()
         ) {
             val entries = ArrayList<EntryRep>()
             it.forEach {
@@ -28,7 +23,7 @@ class AppRepository(db: MyDb) : Repository {
 
     override fun loadEntries(from: Date, to: Date): LiveData<List<EntryRep>> {
         return Transformations.map(
-            entryDao.load(from, to)
+            dao.loadEntries(from, to)
         ) {
             val entries = ArrayList<EntryRep>()
             it.forEach {
@@ -39,7 +34,7 @@ class AppRepository(db: MyDb) : Repository {
     }
 
     override fun insertEntry(entry: EntryRep) {
-        entryDao.insert(entry.getEntity())
+        dao.insertEntry(entry.getEntity())
     }
 
     override fun insertEntries(entries: List<EntryRep>) {
@@ -48,11 +43,11 @@ class AppRepository(db: MyDb) : Repository {
             entities.add(it.getEntity())
         }
 
-        entryDao.insert(entities)
+        dao.insertEntries(entities)
     }
 
     override fun deleteEntry(entry: EntryRep) {
-        entryDao.delete(entry.getEntity())
+        dao.deleteEntry(entry.getEntity())
     }
 
     override fun deleteEntries(entries: List<EntryRep>) {
@@ -61,12 +56,12 @@ class AppRepository(db: MyDb) : Repository {
             entities.add(it.getEntity())
         }
 
-        entryDao.delete(entities)
+        dao.deleteEntries(entities)
     }
 
     override fun loadDescription(): LiveData<List<DescriptionRep>> {
         return Transformations.map(
-            descriptionDao.load()
+            dao.loadDescriptions()
         ) {
             val descriptions = ArrayList<DescriptionRep>()
             it.forEach {
@@ -78,7 +73,7 @@ class AppRepository(db: MyDb) : Repository {
     }
 
     override fun insertDescription(description: DescriptionRep) {
-        descriptionDao.insert(description.getEntity())
+        dao.insertDescription(description.getEntity())
     }
 
     override fun insertDescriptions(descriptions: List<DescriptionRep>) {
@@ -87,11 +82,11 @@ class AppRepository(db: MyDb) : Repository {
             entities.add(it.getEntity())
         }
 
-        descriptionDao.insert(entities)
+        dao.insertDescriptions(entities)
     }
 
     override fun deleteDescription(description: DescriptionRep) {
-        descriptionDao.delete(description.getEntity())
+        dao.deleteDescription(description.getEntity())
     }
 
     override fun deleteDescriptions(descriptions: List<DescriptionRep>) {
@@ -100,12 +95,12 @@ class AppRepository(db: MyDb) : Repository {
             entities.add(it.getEntity())
         }
 
-        descriptionDao.delete(entities)
+        dao.deleteDescriptions(entities)
     }
 
     override fun loadLocation(): LiveData<List<LocationRep>> {
         return Transformations.map(
-            locationDao.load()
+            dao.loadLocations()
         ) {
             val locations = ArrayList<LocationRep>()
             it.forEach {
@@ -116,7 +111,7 @@ class AppRepository(db: MyDb) : Repository {
     }
 
     override fun insertLocation(location: LocationRep) {
-        locationDao.insert(location.getEntity())
+        dao.insertLocation(location.getEntity())
     }
 
     override fun insertLocations(locations: List<LocationRep>) {
@@ -125,11 +120,11 @@ class AppRepository(db: MyDb) : Repository {
             entries.add(it.getEntity())
         }
 
-        locationDao.insert(entries)
+        dao.insertLocations(entries)
     }
 
     override fun deleteLocation(location: LocationRep) {
-        locationDao.delete(location.getEntity())
+        dao.deleteLocation(location.getEntity())
     }
 
     override fun deleteLocations(locations: List<LocationRep>) {
@@ -138,11 +133,11 @@ class AppRepository(db: MyDb) : Repository {
             entries.add(it.getEntity())
         }
 
-        locationDao.delete(entries)
+        dao.deleteLocation(entries)
     }
 
     override fun loadProperties(): LiveData<List<PropertyRep>> {
-        return Transformations.map(propertyDao.load()) {
+        return Transformations.map(dao.loadProperties()) {
             val properties = ArrayList<PropertyRep>()
             it.forEach {
                 properties.add(PropertyRep(it))
@@ -152,13 +147,13 @@ class AppRepository(db: MyDb) : Repository {
     }
 
     override fun loadProperty(name: String): LiveData<PropertyRep> {
-        return Transformations.map(propertyDao.load(name)) {
+        return Transformations.map(dao.loadProperty(name)) {
             if (it != null) PropertyRep(it) else null
         }
     }
 
     override fun insertProperty(property: PropertyRep) {
-        propertyDao.insert(property.getEntity())
+        dao.insertProperty(property.getEntity())
     }
 
     override fun insertProperties(properties: List<PropertyRep>) {
@@ -167,11 +162,11 @@ class AppRepository(db: MyDb) : Repository {
             entries.add(it.getEntity())
         }
 
-        propertyDao.insert(entries)
+        dao.insertProperties(entries)
     }
 
     override fun deleteProperty(property: PropertyRep) {
-        propertyDao.delete(property.getEntity())
+        dao.deleteProperty(property.getEntity())
     }
 
     override fun deleteProperties(properties: List<PropertyRep>) {
@@ -180,6 +175,6 @@ class AppRepository(db: MyDb) : Repository {
             entries.add(it.getEntity())
         }
 
-        propertyDao.delete(entries)
+        dao.deleteProperties(entries)
     }
 }

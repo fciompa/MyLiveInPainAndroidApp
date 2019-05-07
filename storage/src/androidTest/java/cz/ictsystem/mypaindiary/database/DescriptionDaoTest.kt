@@ -13,7 +13,7 @@ class DescriptionDaoTest {
     )
 
     private lateinit var db: MyDb
-    private lateinit var dao: DescriptionDao
+    private lateinit var dao: MyDao
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -25,7 +25,7 @@ class DescriptionDaoTest {
             context, MyDb::class.java
         ).build()
 
-        dao = db.descriptionDao
+        dao = db.dao
     }
 
     @After
@@ -35,29 +35,29 @@ class DescriptionDaoTest {
 
     @Test
     fun init() {
-        Assert.assertEquals(0, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.loadDescriptions().getValueForTest()?.size)
     }
 
     @Test
     fun insert1() {
-        Assert.assertEquals(0, dao.load().getValueForTest()?.size)
-        dao.insert(DescriptionEntity(0, "Description"))
-        Assert.assertEquals(1, dao.load().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.loadDescriptions().getValueForTest()?.size)
+        dao.insertDescription(DescriptionEntity(0, "Description"))
+        Assert.assertEquals(1, dao.loadDescriptions().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2D() {
-        dao.insert(DESCRIPTIONS)
-        Assert.assertEquals(2, dao.load().getValueForTest()?.size)
+        dao.insertDescriptions(DESCRIPTIONS)
+        Assert.assertEquals(2, dao.loadDescriptions().getValueForTest()?.size)
 
     }
 
     @Test
     fun load() {
-        dao.insert(DESCRIPTIONS)
-        Assert.assertEquals("Description 01", dao.load().getValueForTest()?.get(0)?.value)
-        Assert.assertEquals(2, dao.load().getValueForTest()?.get(0)?.id)
+        dao.insertDescriptions(DESCRIPTIONS)
+        Assert.assertEquals("Description 01", dao.loadDescriptions().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, dao.loadDescriptions().getValueForTest()?.get(0)?.id)
     }
 
 }
