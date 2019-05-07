@@ -22,8 +22,8 @@ class EntryDaoTest {
         EntryEntity(0, Date(2019, 1, 22, 6, 25), 1, "description 07", "note 07")
     )
 
-    private lateinit var db: MyDb
-    private lateinit var dao: MyDao
+    private lateinit var db: AppDb
+    private lateinit var dao: AppDao
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -32,7 +32,7 @@ class EntryDaoTest {
     fun createDb() {
         val context = InstrumentationRegistry.getTargetContext();
         db = Room.inMemoryDatabaseBuilder(
-            context, MyDb::class.java
+            context, AppDb::class.java
         ).build()
 
         dao = db.dao

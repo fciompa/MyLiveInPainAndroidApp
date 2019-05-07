@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
 import cz.ictsystem.mypaindiary.repository.AppRepository
-import cz.ictsystem.mypaindiary.storage.MyDb
+import cz.ictsystem.mypaindiary.storage.AppDb
 import org.junit.*
 
 class AppPropertiesTest {
@@ -12,7 +12,7 @@ class AppPropertiesTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var db: MyDb
+    private lateinit var db: AppDb
     private lateinit var rep: AppRepository
 
     @Before
@@ -20,7 +20,7 @@ class AppPropertiesTest {
         val context = InstrumentationRegistry.getTargetContext();
         db = Room.inMemoryDatabaseBuilder(
             context,
-            MyDb::class.java
+            AppDb::class.java
         ).build()
 
         rep = AppRepository(db)

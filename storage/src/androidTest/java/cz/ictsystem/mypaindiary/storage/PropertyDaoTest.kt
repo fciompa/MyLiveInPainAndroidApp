@@ -12,8 +12,8 @@ class PropertyDaoTest {
         PropertyEntity(0, "Property 01", "Value 01")
     )
 
-    private lateinit var db: MyDb
-    private lateinit var dao: MyDao
+    private lateinit var db: AppDb
+    private lateinit var dao: AppDao
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -22,7 +22,7 @@ class PropertyDaoTest {
     fun createDb() {
         val context = InstrumentationRegistry.getTargetContext();
         db = Room.inMemoryDatabaseBuilder(
-            context, MyDb::class.java
+            context, AppDb::class.java
         ).build()
 
         dao = db.dao

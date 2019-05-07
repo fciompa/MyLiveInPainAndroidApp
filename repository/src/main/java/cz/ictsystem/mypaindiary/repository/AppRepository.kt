@@ -6,7 +6,7 @@ import cz.ictsystem.mypaindiary.storage.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AppRepository(private val dao: MyDao) : Repository {
+class AppRepository(private val dao: AppDao) : Repository {
 
     override fun loadEntries(): LiveData<List<EntryRep>> {
         return Transformations.map(
