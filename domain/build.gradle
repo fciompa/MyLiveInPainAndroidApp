@@ -15,7 +15,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -34,15 +33,16 @@ dependencies {
 
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     testImplementation "junit:junit:$junit_version"
 
-    androidTestCompile project(path: ':storage')
+    androidTestImplementation project(path: ':storage')
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
     androidTestImplementation "androidx.arch.core:core-testing:$core_testing_version"
-    implementation "androidx.room:room-runtime:$room_version" //!!! only for testing purpose
+    androidTestImplementation "androidx.room:room-runtime:$room_version" //!!! only for testing purpose
 
 }
 
