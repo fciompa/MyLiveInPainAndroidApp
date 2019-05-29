@@ -49,8 +49,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation "junit:junit:$junit_version"
 
-    androidTestImplementation "androidx.test:runner:$runner_version"
+    androidTestImplementation "androidx.test:runner:${runner_version}@aar"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha05'
 
 }
