@@ -8,7 +8,7 @@
 
     <fragment
             android:id="@+id/nav_entries"
-            android:name="cz.ictsystem.mypaindiary.entries.ViewEntries"
+            android:name="cz.ciompa.frantisek.mylifeinpain.entries.ViewEntries"
             android:label="@string/frg_entries_title"
             tools:layout="@layout/view_entries">
 
@@ -22,13 +22,13 @@
 
     <fragment
             android:id="@+id/nav_reports"
-            android:name="cz.ictsystem.mypaindiary.reports.ViewReports"
+            android:name="cz.ciompa.frantisek.mylifeinpain.reports.ViewReports"
             android:label="@string/frg_reports_title"
             tools:layout="@layout/view_reports"/>
 
     <fragment
             android:id="@+id/nav_others"
-            android:name="cz.ictsystem.mypaindiary.others.ViewOthers"
+            android:name="cz.ciompa.frantisek.mylifeinpain.others.ViewOthers"
             android:label="@string/frg_others_title"
             tools:layout="@layout/view_others">
 
@@ -44,13 +44,13 @@
 
     <fragment
             android:id="@+id/nav_description_list"
-            android:name="cz.ictsystem.mypaindiary.description.frgDescriptionList"
+            android:name="cz.ciompa.frantisek.mylifeinpain.description.frgDescriptionList"
             android:label="@string/frg_description_list_title"
             tools:layout="@layout/view_description_list"/>
 
     <fragment
             android:id="@+id/nav_location_list"
-            android:name="cz.ictsystem.mypaindiary.location.frgLocationList"
+            android:name="cz.ciompa.frantisek.mylifeinpain.location.frgLocationList"
             android:label="@string/frg_location_list_title"
             tools:layout="@layout/view_location_list"/>
 
