@@ -20,6 +20,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("cz.ictsystem.mypaindiary.repository.test", appContext.getPackageName());
+        assertEquals("cz.ciompa.frantisek.mylifeinpain.repository.test", appContext.getPackageName());
     }
 }
