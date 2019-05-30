@@ -6,28 +6,28 @@ import java.util.*
 interface Repository {
     fun loadEntries(): LiveData<List<EntryRep>>
     fun loadEntries(from: Date, to: Date): LiveData<List<EntryRep>>
-    fun insertEntry(entry: EntryRep)
-    fun insertEntries(entries: List<EntryRep>)
-    fun deleteEntry(entry: EntryRep)
-    fun deleteEntries(entries: List<EntryRep>)
+    suspend fun insertEntry(entry: EntryRep)
+    suspend fun insertEntries(entries: List<EntryRep>)
+    suspend fun deleteEntry(entry: EntryRep)
+    suspend fun deleteEntries(entries: List<EntryRep>)
 
     fun loadDescription(): LiveData<List<DescriptionRep>>
-    fun insertDescription(description: DescriptionRep)
-    fun insertDescriptions(descriptions: List<DescriptionRep>)
-    fun deleteDescription(description: DescriptionRep)
-    fun deleteDescriptions(descriptions: List<DescriptionRep>)
+    suspend fun insertDescription(description: DescriptionRep)
+    suspend fun insertDescriptions(descriptions: List<DescriptionRep>)
+    suspend fun deleteDescription(description: DescriptionRep)
+    suspend fun deleteDescriptions(descriptions: List<DescriptionRep>)
 
     fun loadLocation(): LiveData<List<LocationRep>>
-    fun insertLocation(location: LocationRep)
-    fun insertLocations(locations: List<LocationRep>)
-    fun deleteLocation(location: LocationRep)
-    fun deleteLocations(locations: List<LocationRep>)
+    suspend fun insertLocation(location: LocationRep)
+    suspend fun insertLocations(locations: List<LocationRep>)
+    suspend fun deleteLocation(location: LocationRep)
+    suspend fun deleteLocations(locations: List<LocationRep>)
 
     fun loadProperties(): LiveData<List<PropertyRep>>
     fun loadProperty(name: String): LiveData<PropertyRep>
-    fun insertProperty(property: PropertyRep)
-    fun insertProperties(properties: List<PropertyRep>)
-    fun deleteProperty(property: PropertyRep)
-    fun deleteProperties(properties: List<PropertyRep>)
+    suspend fun insertProperty(property: PropertyRep)
+    suspend fun insertProperties(properties: List<PropertyRep>)
+    suspend fun deleteProperty(property: PropertyRep)
+    suspend fun deleteProperties(properties: List<PropertyRep>)
 
 }

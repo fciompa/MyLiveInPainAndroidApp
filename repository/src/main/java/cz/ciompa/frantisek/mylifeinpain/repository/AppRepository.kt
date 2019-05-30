@@ -33,11 +33,11 @@ class AppRepository(private val dao: AppDao) : Repository {
         }
     }
 
-    override fun insertEntry(entry: EntryRep) {
+    override suspend fun insertEntry(entry: EntryRep) {
         dao.insertEntry(entry.getEntity())
     }
 
-    override fun insertEntries(entries: List<EntryRep>) {
+    override suspend fun insertEntries(entries: List<EntryRep>) {
         val entities = ArrayList<EntryEntity>()
         entries.forEach {
             entities.add(it.getEntity())
@@ -46,11 +46,11 @@ class AppRepository(private val dao: AppDao) : Repository {
         dao.insertEntries(entities)
     }
 
-    override fun deleteEntry(entry: EntryRep) {
+    override suspend fun deleteEntry(entry: EntryRep) {
         dao.deleteEntry(entry.getEntity())
     }
 
-    override fun deleteEntries(entries: List<EntryRep>) {
+    override suspend fun deleteEntries(entries: List<EntryRep>) {
         val entities = ArrayList<EntryEntity>()
         entries.forEach {
             entities.add(it.getEntity())
@@ -72,11 +72,11 @@ class AppRepository(private val dao: AppDao) : Repository {
         }
     }
 
-    override fun insertDescription(description: DescriptionRep) {
+    override suspend fun insertDescription(description: DescriptionRep) {
         dao.insertDescription(description.getEntity())
     }
 
-    override fun insertDescriptions(descriptions: List<DescriptionRep>) {
+    override suspend fun insertDescriptions(descriptions: List<DescriptionRep>) {
         val entities = ArrayList<DescriptionEntity>()
         descriptions.forEach {
             entities.add(it.getEntity())
@@ -85,11 +85,11 @@ class AppRepository(private val dao: AppDao) : Repository {
         dao.insertDescriptions(entities)
     }
 
-    override fun deleteDescription(description: DescriptionRep) {
+    override suspend fun deleteDescription(description: DescriptionRep) {
         dao.deleteDescription(description.getEntity())
     }
 
-    override fun deleteDescriptions(descriptions: List<DescriptionRep>) {
+    override suspend fun deleteDescriptions(descriptions: List<DescriptionRep>) {
         val entities = ArrayList<DescriptionEntity>()
         descriptions.forEach {
             entities.add(it.getEntity())
@@ -110,11 +110,11 @@ class AppRepository(private val dao: AppDao) : Repository {
         }
     }
 
-    override fun insertLocation(location: LocationRep) {
+    override suspend fun insertLocation(location: LocationRep) {
         dao.insertLocation(location.getEntity())
     }
 
-    override fun insertLocations(locations: List<LocationRep>) {
+    override suspend fun insertLocations(locations: List<LocationRep>) {
         val entries = ArrayList<LocationEntity>()
         locations.forEach {
             entries.add(it.getEntity())
@@ -123,11 +123,11 @@ class AppRepository(private val dao: AppDao) : Repository {
         dao.insertLocations(entries)
     }
 
-    override fun deleteLocation(location: LocationRep) {
+    override suspend fun deleteLocation(location: LocationRep) {
         dao.deleteLocation(location.getEntity())
     }
 
-    override fun deleteLocations(locations: List<LocationRep>) {
+    override suspend fun deleteLocations(locations: List<LocationRep>) {
         val entries = ArrayList<LocationEntity>()
         locations.forEach {
             entries.add(it.getEntity())
@@ -152,11 +152,11 @@ class AppRepository(private val dao: AppDao) : Repository {
         }
     }
 
-    override fun insertProperty(property: PropertyRep) {
+    override suspend fun insertProperty(property: PropertyRep) {
         dao.insertProperty(property.getEntity())
     }
 
-    override fun insertProperties(properties: List<PropertyRep>) {
+    override suspend fun insertProperties(properties: List<PropertyRep>) {
         val entries = ArrayList<PropertyEntity>()
         properties.forEach {
             entries.add(it.getEntity())
@@ -165,11 +165,11 @@ class AppRepository(private val dao: AppDao) : Repository {
         dao.insertProperties(entries)
     }
 
-    override fun deleteProperty(property: PropertyRep) {
+    override suspend fun deleteProperty(property: PropertyRep) {
         dao.deleteProperty(property.getEntity())
     }
 
-    override fun deleteProperties(properties: List<PropertyRep>) {
+    override suspend fun deleteProperties(properties: List<PropertyRep>) {
         val entries = ArrayList<PropertyEntity>()
         properties.forEach {
             entries.add(it.getEntity())

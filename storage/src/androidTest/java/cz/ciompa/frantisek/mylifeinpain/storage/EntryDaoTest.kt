@@ -3,6 +3,7 @@ package cz.ciompa.frantisek.mylifeinpain.storage
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
+import kotlinx.coroutines.runBlocking
 import org.junit.*
 import java.util.*
 
@@ -49,7 +50,7 @@ class EntryDaoTest {
     }
 
     @Test
-    fun insert1() {
+    fun insert1() = runBlocking {
         Assert.assertEquals(0, dao.loadEntries().getValueForTest()?.size)
         dao.insertEntry(
             EntryEntity(
@@ -65,14 +66,14 @@ class EntryDaoTest {
     }
 
     @Test
-    fun insert2() {
+    fun insert2() = runBlocking {
         dao.insertEntries(ENTRIES)
         Assert.assertEquals(9, dao.loadEntries().getValueForTest()?.size)
 
     };
 
     @Test
-    fun load() {
+    fun load() = runBlocking {
         dao.insertEntries(ENTRIES)
         Assert.assertEquals(Date(2019, 1, 22, 6, 35).time, dao.loadEntries().getValueForTest()?.get(0)?.entryDate?.time)
         Assert.assertEquals(3, dao.loadEntries().getValueForTest()?.get(0)?.intensity)
@@ -82,7 +83,7 @@ class EntryDaoTest {
     }
 
     @Test
-    fun loadByDateInterval1() {
+    fun loadByDateInterval1() = runBlocking {
         dao.insertEntries(ENTRIES)
         Assert.assertEquals(
             1,
@@ -97,7 +98,7 @@ class EntryDaoTest {
     }
 
     @Test
-    fun loadByDateInterval2() {
+    fun loadByDateInterval2() = runBlocking {
         dao.insertEntries(ENTRIES)
         val list = dao.loadEntries(Date(2019, 1, 21), Date(2019, 1, 22)).getValueForTest()
         Assert.assertEquals(3, list?.size)

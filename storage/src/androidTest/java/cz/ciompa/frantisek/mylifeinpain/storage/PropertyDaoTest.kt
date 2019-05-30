@@ -3,6 +3,7 @@ package cz.ciompa.frantisek.mylifeinpain.storage
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
+import kotlinx.coroutines.runBlocking
 import org.junit.*
 
 class PropertyDaoTest {
@@ -39,7 +40,7 @@ class PropertyDaoTest {
     }
 
     @Test
-    fun insert1() {
+    fun insert1() = runBlocking {
         Assert.assertEquals(0, dao.loadProperties().getValueForTest()?.size)
         dao.insertProperty(PropertyEntity(0, "Property", "Value"))
         Assert.assertEquals(1, dao.loadProperties().getValueForTest()?.size)
@@ -47,14 +48,14 @@ class PropertyDaoTest {
     }
 
     @Test
-    fun insert2() {
+    fun insert2() = runBlocking {
         dao.insertProperties(PROPERTIES)
         Assert.assertEquals(2, dao.loadProperties().getValueForTest()?.size)
 
     }
 
     @Test
-    fun load() {
+    fun load() = runBlocking {
         dao.insertProperties(PROPERTIES)
         Assert.assertEquals("Property 01", dao.loadProperties().getValueForTest()?.get(0)?.name)
         Assert.assertEquals("Value 01", dao.loadProperties().getValueForTest()?.get(0)?.value)
@@ -62,7 +63,7 @@ class PropertyDaoTest {
     }
 
     @Test
-    fun loadByName() {
+    fun loadByName() = runBlocking {
         dao.insertProperties(PROPERTIES)
 
         val property01 = dao.loadProperty("Property 01").getValueForTest()

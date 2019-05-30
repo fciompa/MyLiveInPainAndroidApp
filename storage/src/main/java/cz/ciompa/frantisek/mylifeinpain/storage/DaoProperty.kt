@@ -14,14 +14,14 @@ interface DaoProperty {
     fun loadProperty(name: String): LiveData<PropertyEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertProperty(entity: PropertyEntity)
+    suspend fun insertProperty(entity: PropertyEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertProperties(entities: List<PropertyEntity>)
+    suspend fun insertProperties(entities: List<PropertyEntity>)
 
     @Delete
-    fun deleteProperty(entity: PropertyEntity)
+    suspend fun deleteProperty(entity: PropertyEntity)
 
     @Delete
-    fun deleteProperties(entities: List<PropertyEntity>)
+    suspend fun deleteProperties(entities: List<PropertyEntity>)
 }

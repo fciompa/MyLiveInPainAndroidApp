@@ -9,6 +9,7 @@ import cz.ciompa.frantisek.mylifeinpain.repository.DescriptionRep
 import cz.ciompa.frantisek.mylifeinpain.repository.EntryRep
 import cz.ciompa.frantisek.mylifeinpain.repository.LocationRep
 import cz.ciompa.frantisek.mylifeinpain.repository.Repository
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -20,8 +21,10 @@ class AppDomain(private val repository: Repository) : Domain {
         properties = AppProperties(repository)
 
         if (properties.isNewInstallationValue()) {
-            DemoData(repository).insert()
-            properties.setNewInstallation(false)
+            runBlocking {
+                DemoData(repository).insert()
+                properties.setNewInstallation(false)
+            }
         }
     }
 
@@ -45,11 +48,11 @@ class AppDomain(private val repository: Repository) : Domain {
         }
     }
 
-    override fun insertEntry(entry: Entry) {
+    override suspend fun insertEntry(entry: Entry) {
         repository.insertEntry(entry.getRep())
     }
 
-    override fun insertEntries(entries: List<Entry>) {
+    override suspend fun insertEntries(entries: List<Entry>) {
         val items: List<EntryRep> = ArrayList()
         entries.forEach { entry ->
             (items as ArrayList).add(entry.getRep())
@@ -57,11 +60,11 @@ class AppDomain(private val repository: Repository) : Domain {
         repository.insertEntries(items)
     }
 
-    override fun deleteEntry(entry: Entry) {
+    override suspend fun deleteEntry(entry: Entry) {
         repository.deleteEntry(entry.getRep())
     }
 
-    override fun deleteEntries(entries: List<Entry>) {
+    override suspend fun deleteEntries(entries: List<Entry>) {
         val items: List<EntryRep> = ArrayList()
         entries.forEach { entry ->
             (items as ArrayList).add(entry.getRep())
@@ -79,11 +82,11 @@ class AppDomain(private val repository: Repository) : Domain {
         }
     }
 
-    override fun insertDescription(description: Description) {
+    override suspend fun insertDescription(description: Description) {
         repository.insertDescription(description.getRep())
     }
 
-    override fun insertDescriptions(descriptions: List<Description>) {
+    override suspend fun insertDescriptions(descriptions: List<Description>) {
         val items = ArrayList<DescriptionRep>()
         descriptions.forEach {
             items.add(it.getRep())
@@ -91,11 +94,11 @@ class AppDomain(private val repository: Repository) : Domain {
         repository.insertDescriptions(items)
     }
 
-    override fun deleteDescription(description: Description) {
+    override suspend fun deleteDescription(description: Description) {
         repository.deleteDescription(description.getRep())
     }
 
-    override fun deleteDescriptions(descriptions: List<Description>) {
+    override suspend fun deleteDescriptions(descriptions: List<Description>) {
         val items = ArrayList<DescriptionRep>()
         descriptions.forEach {
             items.add(it.getRep())
@@ -113,11 +116,11 @@ class AppDomain(private val repository: Repository) : Domain {
         }
     }
 
-    override fun insertLocation(location: Location) {
+    override suspend fun insertLocation(location: Location) {
         repository.insertLocation(location.getRep())
     }
 
-    override fun insertLocations(locations: List<Location>) {
+    override suspend fun insertLocations(locations: List<Location>) {
         val items = ArrayList<LocationRep>()
         locations.forEach {
             items.add(it.getRep())
@@ -125,11 +128,11 @@ class AppDomain(private val repository: Repository) : Domain {
         repository.insertLocations(items)
     }
 
-    override fun deleteLocation(location: Location) {
+    override suspend fun deleteLocation(location: Location) {
         repository.deleteLocation(location.getRep())
     }
 
-    override fun deleteLocations(locations: List<Location>) {
+    override suspend fun deleteLocations(locations: List<Location>) {
         val items = ArrayList<LocationRep>()
         locations.forEach {
             items.add(it.getRep())

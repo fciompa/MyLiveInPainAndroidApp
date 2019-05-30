@@ -15,14 +15,14 @@ interface DaoEntry {
     fun loadEntries(from: Date, to: Date): LiveData<List<EntryEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEntry(entity: EntryEntity)
+    suspend fun insertEntry(entity: EntryEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEntries(entities: List<EntryEntity>)
+    suspend fun insertEntries(entities: List<EntryEntity>)
 
     @Delete
-    fun deleteEntry(entity: EntryEntity)
+    suspend fun deleteEntry(entity: EntryEntity)
 
     @Delete
-    fun deleteEntries(entities: List<EntryEntity>)
+    suspend fun deleteEntries(entities: List<EntryEntity>)
 }

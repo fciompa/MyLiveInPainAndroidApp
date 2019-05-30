@@ -1,8 +1,10 @@
 package cz.ciompa.frantisek.mylifeinpain.storage
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
+import kotlinx.coroutines.runBlocking
 import org.junit.*
 
 class DescriptionDaoTest {
@@ -39,22 +41,34 @@ class DescriptionDaoTest {
     }
 
     @Test
-    fun insert1() {
+    fun insert1() = runBlocking {
         Assert.assertEquals(0, dao.loadDescriptions().getValueForTest()?.size)
         dao.insertDescription(DescriptionEntity(0, "Description"))
         Assert.assertEquals(1, dao.loadDescriptions().getValueForTest()?.size)
-
     }
 
     @Test
-    fun insert2D() {
+    fun insert2() = runBlocking {
         dao.insertDescriptions(DESCRIPTIONS)
         Assert.assertEquals(2, dao.loadDescriptions().getValueForTest()?.size)
-
     }
 
     @Test
-    fun load() {
+    fun insert3() = runBlocking {
+        var size = 0
+        var observer = Observer<List<DescriptionEntity>> {
+            size = it.size
+        }
+        var descriptions = dao.loadDescriptions()
+        descriptions.observeForever(observer)
+
+        Assert.assertEquals(0, size)
+        dao.insertDescriptions(DESCRIPTIONS)
+        Assert.assertEquals(2, size)
+    }
+
+    @Test
+    fun load() = runBlocking {
         dao.insertDescriptions(DESCRIPTIONS)
         Assert.assertEquals("Description 01", dao.loadDescriptions().getValueForTest()?.get(0)?.value)
         Assert.assertEquals(2, dao.loadDescriptions().getValueForTest()?.get(0)?.id)

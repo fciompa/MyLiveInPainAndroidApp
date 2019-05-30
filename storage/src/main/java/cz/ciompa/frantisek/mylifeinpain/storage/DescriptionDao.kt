@@ -11,14 +11,14 @@ interface DescriptionDao {
     fun loadDescriptions(): LiveData<List<DescriptionEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertDescription(entity: DescriptionEntity)
+    suspend fun insertDescription(entity: DescriptionEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertDescriptions(entities: List<DescriptionEntity>)
+    suspend fun insertDescriptions(entities: List<DescriptionEntity>)
 
     @Delete
-    fun deleteDescription(entity: DescriptionEntity)
+    suspend fun deleteDescription(entity: DescriptionEntity)
 
     @Delete
-    fun deleteDescriptions(entities: List<DescriptionEntity>)
+    suspend fun deleteDescriptions(entities: List<DescriptionEntity>)
 }

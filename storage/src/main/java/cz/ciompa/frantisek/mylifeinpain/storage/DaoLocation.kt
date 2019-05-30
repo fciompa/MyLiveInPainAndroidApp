@@ -11,14 +11,14 @@ interface DaoLocation {
     fun loadLocations(): LiveData<List<LocationEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertLocation(entity: LocationEntity)
+    suspend fun insertLocation(entity: LocationEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertLocations(entities: List<LocationEntity>)
+    suspend fun insertLocations(entities: List<LocationEntity>)
 
     @Delete
-    fun deleteLocation(entity: LocationEntity)
+    suspend fun deleteLocation(entity: LocationEntity)
 
     @Delete
-    fun deleteLocation(entities: List<LocationEntity>)
+    suspend fun deleteLocation(entities: List<LocationEntity>)
 }

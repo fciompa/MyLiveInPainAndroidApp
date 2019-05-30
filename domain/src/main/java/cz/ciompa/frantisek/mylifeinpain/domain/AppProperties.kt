@@ -21,8 +21,8 @@ class AppProperties(val repository: Repository) : Properties {
         return value?.value?.toBoolean() ?: true
     }
 
-    override fun setNewInstallation(newInstalationValue: Boolean) {
-        repository.insertProperty(PropertyRep(0, propNameNewInstallation, newInstalationValue.toString()))
+    override suspend fun setNewInstallation(newInstalation: Boolean) {
+        repository.insertProperty(PropertyRep(0, propNameNewInstallation, newInstalation.toString()))
     }
 
     private fun <T> getValueFromLiveData(liveData: LiveData<T>): T? {

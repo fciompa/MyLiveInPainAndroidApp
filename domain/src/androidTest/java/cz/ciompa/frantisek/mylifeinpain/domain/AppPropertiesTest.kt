@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.test.InstrumentationRegistry
 import cz.ciompa.frantisek.mylifeinpain.repository.AppRepository
 import cz.ciompa.frantisek.mylifeinpain.storage.AppDb
+import kotlinx.coroutines.runBlocking
 import org.junit.*
 
 class AppPropertiesTest {
@@ -31,7 +32,7 @@ class AppPropertiesTest {
     }
 
     @Test
-    fun isNewInstallation() {
+    fun isNewInstallation() = runBlocking {
         val properties = AppProperties(rep)
         val newInstallation1 = properties.isNewInstallation()
         Assert.assertTrue(newInstallation1.getValueForTest()!!)
@@ -41,7 +42,7 @@ class AppPropertiesTest {
     }
 
     @Test
-    fun isNewInstallationValue() {
+    fun isNewInstallationValue() = runBlocking {
         val properties = AppProperties(rep)
         val newInstallation1 = properties.isNewInstallationValue()
         Assert.assertTrue(newInstallation1)

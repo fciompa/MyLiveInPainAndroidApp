@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.test.InstrumentationRegistry
 import cz.ciompa.frantisek.mylifeinpain.repository.AppRepository
 import cz.ciompa.frantisek.mylifeinpain.storage.AppDb
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -29,7 +30,7 @@ class DemoDataTest {
     }
 
     @Test
-    fun insert() {
+    fun insert() = runBlocking {
         Assert.assertEquals(0, rep.loadDescription().getValueForTest()?.size ?: 0)
         Assert.assertEquals(0, rep.loadEntries().getValueForTest()?.size ?: 0)
         Assert.assertEquals(0, rep.loadLocation().getValueForTest()?.size ?: 0)

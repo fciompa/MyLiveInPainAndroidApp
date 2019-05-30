@@ -3,6 +3,7 @@ package cz.ciompa.frantisek.mylifeinpain.storage
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
+import kotlinx.coroutines.runBlocking
 import org.junit.*
 
 class LocationDaoTest {
@@ -39,7 +40,7 @@ class LocationDaoTest {
     }
 
     @Test
-    fun insert1() {
+    fun insert1() = runBlocking {
         Assert.assertEquals(0, dao.loadLocations().getValueForTest()?.size)
         dao.insertLocation(LocationEntity(0, "Location"))
         Assert.assertEquals(1, dao.loadLocations().getValueForTest()?.size)
@@ -47,14 +48,14 @@ class LocationDaoTest {
     }
 
     @Test
-    fun insert2() {
+    fun insert2() = runBlocking {
         dao.insertLocations(LOCATIONS)
         Assert.assertEquals(2, dao.loadLocations().getValueForTest()?.size)
 
     }
 
     @Test
-    fun load() {
+    fun load() = runBlocking {
         dao.insertLocations(LOCATIONS)
         Assert.assertEquals("Location 01", dao.loadLocations().getValueForTest()?.get(0)?.value)
         Assert.assertEquals(2, dao.loadLocations().getValueForTest()?.get(0)?.id)

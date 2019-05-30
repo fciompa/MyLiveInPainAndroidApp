@@ -30,7 +30,7 @@ class DemoData(private val repository: Repository) {
         EntryRep(0, Date(2019, 1, 22, 6, 25), 1, "description 07", "note 07")
     )
 
-    fun insert() {
+    suspend fun insert() {
         repository.insertDescriptions(DESCRIPTIONS)
         repository.insertLocations(LOCATIONS)
         repository.insertEntries(ENTRIES)
