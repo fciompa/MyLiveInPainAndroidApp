@@ -36,42 +36,42 @@ class PropertyDaoTest {
 
     @Test
     fun init() {
-        Assert.assertEquals(0, dao.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.properties().getValueForTest()?.size)
     }
 
     @Test
     fun insert1() = runBlocking {
-        Assert.assertEquals(0, dao.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.properties().getValueForTest()?.size)
         dao.insertProperty(PropertyEntity(0, "Property", "Value"))
-        Assert.assertEquals(1, dao.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(1, dao.properties().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2() = runBlocking {
         dao.insertProperties(PROPERTIES)
-        Assert.assertEquals(2, dao.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(2, dao.properties().getValueForTest()?.size)
 
     }
 
     @Test
     fun load() = runBlocking {
         dao.insertProperties(PROPERTIES)
-        Assert.assertEquals("Property 01", dao.loadProperties().getValueForTest()?.get(0)?.name)
-        Assert.assertEquals("Value 01", dao.loadProperties().getValueForTest()?.get(0)?.value)
-        Assert.assertEquals(2, dao.loadProperties().getValueForTest()?.get(0)?.id)
+        Assert.assertEquals("Property 01", dao.properties().getValueForTest()?.get(0)?.name)
+        Assert.assertEquals("Value 01", dao.properties().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, dao.properties().getValueForTest()?.get(0)?.id)
     }
 
     @Test
     fun loadByName() = runBlocking {
         dao.insertProperties(PROPERTIES)
 
-        val property01 = dao.loadProperty("Property 01").getValueForTest()
+        val property01 = dao.property("Property 01").getValueForTest()
         Assert.assertEquals("Property 01", property01?.name)
         Assert.assertEquals("Value 01", property01?.value)
         Assert.assertEquals(2, property01?.id)
 
-        val property02 = dao.loadProperty("Property 02").getValueForTest()
+        val property02 = dao.property("Property 02").getValueForTest()
         Assert.assertEquals("Property 02", property02?.name)
         Assert.assertEquals("Value 02", property02?.value)
         Assert.assertEquals(1, property02?.id)

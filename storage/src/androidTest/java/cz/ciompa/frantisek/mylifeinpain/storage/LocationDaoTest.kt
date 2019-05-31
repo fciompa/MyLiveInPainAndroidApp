@@ -36,29 +36,29 @@ class LocationDaoTest {
 
     @Test
     fun init() {
-        Assert.assertEquals(0, dao.loadLocations().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.locations().getValueForTest()?.size)
     }
 
     @Test
     fun insert1() = runBlocking {
-        Assert.assertEquals(0, dao.loadLocations().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.locations().getValueForTest()?.size)
         dao.insertLocation(LocationEntity(0, "Location"))
-        Assert.assertEquals(1, dao.loadLocations().getValueForTest()?.size)
+        Assert.assertEquals(1, dao.locations().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2() = runBlocking {
         dao.insertLocations(LOCATIONS)
-        Assert.assertEquals(2, dao.loadLocations().getValueForTest()?.size)
+        Assert.assertEquals(2, dao.locations().getValueForTest()?.size)
 
     }
 
     @Test
     fun load() = runBlocking {
         dao.insertLocations(LOCATIONS)
-        Assert.assertEquals("Location 01", dao.loadLocations().getValueForTest()?.get(0)?.value)
-        Assert.assertEquals(2, dao.loadLocations().getValueForTest()?.get(0)?.id)
+        Assert.assertEquals("Location 01", dao.locations().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, dao.locations().getValueForTest()?.get(0)?.id)
     }
 
 }

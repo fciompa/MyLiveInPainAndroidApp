@@ -6,17 +6,17 @@ import androidx.lifecycle.Transformations
 import cz.ciompa.frantisek.mylifeinpain.repository.PropertyRep
 import cz.ciompa.frantisek.mylifeinpain.repository.Repository
 
-class AppProperties(val repository: Repository) : Properties {
+class PropertiesImpl(val repository: Repository) : Properties {
 
     override fun isNewInstallation(): LiveData<Boolean> {
-        return Transformations.map(repository.loadProperty(propNameNewInstallation)) {
+        return Transformations.map(repository.property(propNameNewInstallation)) {
             it?.value?.toBoolean() ?: true
         }
     }
 
     override fun isNewInstallationValue(): Boolean {
 
-        val properties = repository.loadProperty(Companion.propNameNewInstallation)
+        val properties = repository.property(Companion.propNameNewInstallation)
         var value = getValueFromLiveData(properties)
         return value?.value?.toBoolean() ?: true
     }

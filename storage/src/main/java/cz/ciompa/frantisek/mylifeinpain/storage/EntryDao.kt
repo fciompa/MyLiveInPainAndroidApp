@@ -7,12 +7,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import java.util.*
 
-interface DaoEntry {
+interface EntryDao {
     @Query("SELECT * FROM entry ORDER BY entry_date desc")
-    fun loadEntries(): LiveData<List<EntryEntity>>
+    fun entries(): LiveData<List<EntryEntity>>
 
     @Query("SELECT * FROM entry WHERE entry_date between :from and :to")
-    fun loadEntries(from: Date, to: Date): LiveData<List<EntryEntity>>
+    fun entries(from: Date, to: Date): LiveData<List<EntryEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEntry(entity: EntryEntity)

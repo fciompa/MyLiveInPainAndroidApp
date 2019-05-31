@@ -6,11 +6,17 @@ import cz.ciompa.frantisek.mylifeinpain.storage.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AppRepository(private val dao: AppDao) : Repository {
+class RepositoryImpl(private val dao: AppDao) : Repository {
 
-    override fun loadEntries(): LiveData<List<EntryRep>> {
-        return Transformations.map(
-            dao.loadEntries()
+    private val allStorageEntries: LiveData<List<EntryRep>>
+    private val allStorageDescriptions: LiveData<List<DescriptionRep>>
+    private val allStorageLocations: LiveData<List<LocationRep>>
+    private val allStorageProperties: LiveData<List<PropertyRep>>
+
+    init {
+
+        allStorageEntries = Transformations.map(
+            dao.entries()
         ) {
             val entries = ArrayList<EntryRep>()
             it.forEach {
@@ -18,12 +24,43 @@ class AppRepository(private val dao: AppDao) : Repository {
             }
 
             entries
+        }
+
+        allStorageDescriptions = Transformations.map(
+            dao.descriptions()
+        ) {
+            val descriptions = ArrayList<DescriptionRep>()
+            it.forEach {
+                descriptions.add(DescriptionRep(it))
+            }
+
+            descriptions
+        }
+
+        allStorageLocations = Transformations.map(
+            dao.locations()
+        ) {
+            val locations = ArrayList<LocationRep>()
+            it.forEach {
+                locations.add(LocationRep(it))
+            }
+            locations
+        }
+
+        allStorageProperties = Transformations.map(dao.properties()) {
+            val properties = ArrayList<PropertyRep>()
+            it.forEach {
+                properties.add(PropertyRep(it))
+            }
+            properties
         }
     }
 
-    override fun loadEntries(from: Date, to: Date): LiveData<List<EntryRep>> {
+    override fun entries(): LiveData<List<EntryRep>> = allStorageEntries
+
+    override fun entries(from: Date, to: Date): LiveData<List<EntryRep>> {
         return Transformations.map(
-            dao.loadEntries(from, to)
+            dao.entries(from, to)
         ) {
             val entries = ArrayList<EntryRep>()
             it.forEach {
@@ -31,6 +68,7 @@ class AppRepository(private val dao: AppDao) : Repository {
             }
             entries
         }
+
     }
 
     override suspend fun insertEntry(entry: EntryRep) {
@@ -59,18 +97,7 @@ class AppRepository(private val dao: AppDao) : Repository {
         dao.deleteEntries(entities)
     }
 
-    override fun loadDescription(): LiveData<List<DescriptionRep>> {
-        return Transformations.map(
-            dao.loadDescriptions()
-        ) {
-            val descriptions = ArrayList<DescriptionRep>()
-            it.forEach {
-                descriptions.add(DescriptionRep(it))
-            }
-
-            descriptions
-        }
-    }
+    override fun descriptions(): LiveData<List<DescriptionRep>> = allStorageDescriptions
 
     override suspend fun insertDescription(description: DescriptionRep) {
         dao.insertDescription(description.getEntity())
@@ -98,17 +125,7 @@ class AppRepository(private val dao: AppDao) : Repository {
         dao.deleteDescriptions(entities)
     }
 
-    override fun loadLocation(): LiveData<List<LocationRep>> {
-        return Transformations.map(
-            dao.loadLocations()
-        ) {
-            val locations = ArrayList<LocationRep>()
-            it.forEach {
-                locations.add(LocationRep(it))
-            }
-            locations
-        }
-    }
+    override fun locations(): LiveData<List<LocationRep>> = allStorageLocations
 
     override suspend fun insertLocation(location: LocationRep) {
         dao.insertLocation(location.getEntity())
@@ -136,18 +153,10 @@ class AppRepository(private val dao: AppDao) : Repository {
         dao.deleteLocation(entries)
     }
 
-    override fun loadProperties(): LiveData<List<PropertyRep>> {
-        return Transformations.map(dao.loadProperties()) {
-            val properties = ArrayList<PropertyRep>()
-            it.forEach {
-                properties.add(PropertyRep(it))
-            }
-            properties
-        }
-    }
+    override fun properties(): LiveData<List<PropertyRep>> = allStorageProperties
 
-    override fun loadProperty(name: String): LiveData<PropertyRep> {
-        return Transformations.map(dao.loadProperty(name)) {
+    override fun property(name: String): LiveData<PropertyRep> {
+        return Transformations.map(dao.property(name)) {
             if (it != null) PropertyRep(it) else null
         }
     }

@@ -37,20 +37,20 @@ class DescriptionDaoTest {
 
     @Test
     fun init() {
-        Assert.assertEquals(0, dao.loadDescriptions().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.descriptions().getValueForTest()?.size)
     }
 
     @Test
     fun insert1() = runBlocking {
-        Assert.assertEquals(0, dao.loadDescriptions().getValueForTest()?.size)
+        Assert.assertEquals(0, dao.descriptions().getValueForTest()?.size)
         dao.insertDescription(DescriptionEntity(0, "Description"))
-        Assert.assertEquals(1, dao.loadDescriptions().getValueForTest()?.size)
+        Assert.assertEquals(1, dao.descriptions().getValueForTest()?.size)
     }
 
     @Test
     fun insert2() = runBlocking {
         dao.insertDescriptions(DESCRIPTIONS)
-        Assert.assertEquals(2, dao.loadDescriptions().getValueForTest()?.size)
+        Assert.assertEquals(2, dao.descriptions().getValueForTest()?.size)
     }
 
     @Test
@@ -59,7 +59,7 @@ class DescriptionDaoTest {
         var observer = Observer<List<DescriptionEntity>> {
             size = it.size
         }
-        var descriptions = dao.loadDescriptions()
+        var descriptions = dao.descriptions()
         descriptions.observeForever(observer)
 
         Assert.assertEquals(0, size)
@@ -70,8 +70,8 @@ class DescriptionDaoTest {
     @Test
     fun load() = runBlocking {
         dao.insertDescriptions(DESCRIPTIONS)
-        Assert.assertEquals("Description 01", dao.loadDescriptions().getValueForTest()?.get(0)?.value)
-        Assert.assertEquals(2, dao.loadDescriptions().getValueForTest()?.get(0)?.id)
+        Assert.assertEquals("Description 01", dao.descriptions().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, dao.descriptions().getValueForTest()?.get(0)?.id)
     }
 
 }

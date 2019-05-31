@@ -8,7 +8,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.*
 import java.util.*
 
-class AppRepositoryTest {
+class RepositoryImplTest {
 
     private val DESCRIPTIONS = listOf(
         DescriptionRep(0, "DescriptionRep 02"),
@@ -43,7 +43,7 @@ class AppRepositoryTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var db: AppDb
-    private lateinit var rep: AppRepository
+    private lateinit var rep: RepositoryImpl
 
     @Before
     fun createDb() {
@@ -53,7 +53,7 @@ class AppRepositoryTest {
             AppDb::class.java
         ).build()
 
-        rep = AppRepository(db.dao)
+        rep = RepositoryImpl(db.dao)
     }
 
     @After
@@ -63,15 +63,15 @@ class AppRepositoryTest {
 
     @Test
     fun initDescription() {
-        Assert.assertEquals(0, rep.loadDescription().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.descriptions().getValueForTest()?.size)
     }
 
     @Test
     fun insert1Description() = runBlocking {
-        val list1 = rep.loadDescription().getValueForTest()
+        val list1 = rep.descriptions().getValueForTest()
         Assert.assertEquals(0, list1?.size)
         rep.insertDescription(DescriptionRep(0, "DescriptionRep"))
-        val list2 = rep.loadDescription().getValueForTest()
+        val list2 = rep.descriptions().getValueForTest()
         Assert.assertEquals(1, list2?.size)
         Assert.assertEquals("DescriptionRep", list2?.get(0)?.value)
 
@@ -80,52 +80,52 @@ class AppRepositoryTest {
     @Test
     fun insert2Description() = runBlocking {
         rep.insertDescriptions(DESCRIPTIONS)
-        val list = rep.loadDescription().getValueForTest()
+        val list = rep.descriptions().getValueForTest()
         Assert.assertEquals(2, list?.size)
     }
 
     @Test
     fun loadDescription() = runBlocking {
         rep.insertDescriptions(DESCRIPTIONS)
-        Assert.assertEquals("DescriptionRep 01", rep.loadDescription().getValueForTest()?.get(0)?.value)
-        Assert.assertEquals(2, rep.loadDescription().getValueForTest()?.get(0)?.id)
+        Assert.assertEquals("DescriptionRep 01", rep.descriptions().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, rep.descriptions().getValueForTest()?.get(0)?.id)
     }
 
     @Test
     fun deleteDescription() = runBlocking {
-        Assert.assertEquals(0, rep.loadDescription().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.descriptions().getValueForTest()?.size)
         rep.insertDescription(DescriptionRep(0, "DescriptionRep"))
-        val descriptions = rep.loadDescription().getValueForTest()
+        val descriptions = rep.descriptions().getValueForTest()
         Assert.assertEquals(1, descriptions?.size)
         val description = descriptions?.get(0)
         Assert.assertNotNull(description)
         if (description != null) rep.deleteDescription(description)
-        Assert.assertEquals(0, rep.loadDescription().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.descriptions().getValueForTest()?.size)
     }
 
     @Test
     fun initEntries() {
-        Assert.assertEquals(0, rep.loadEntries().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.entries().getValueForTest()?.size)
     }
 
     @Test
     fun insert1Entries() = runBlocking {
-        Assert.assertEquals(0, rep.loadEntries().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.entries().getValueForTest()?.size)
         rep.insertEntry(EntryRep(0, Date(2019, 1, 20, 4, 35), 1, "description", "note"))
-        Assert.assertEquals(1, rep.loadEntries().getValueForTest()?.size)
+        Assert.assertEquals(1, rep.entries().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2Entries() = runBlocking {
         rep.insertEntries(ENTRIES)
-        Assert.assertEquals(9, rep.loadEntries().getValueForTest()?.size)
+        Assert.assertEquals(9, rep.entries().getValueForTest()?.size)
     }
 
     @Test
     fun loadEntries() = runBlocking {
         rep.insertEntries(ENTRIES)
-        val entry0 = rep.loadEntries().getValueForTest()?.get(0)
+        val entry0 = rep.entries().getValueForTest()?.get(0)
 
         Assert.assertEquals(Date(2019, 1, 22, 6, 35).time, entry0?.entryDate?.time)
         Assert.assertEquals(3, entry0?.intensity)
@@ -139,11 +139,11 @@ class AppRepositoryTest {
         rep.insertEntries(ENTRIES)
         Assert.assertEquals(
             1,
-            rep.loadEntries(Date(2019, 1, 21, 5, 30), Date(2019, 1, 21, 5, 30)).getValueForTest()?.size
+            rep.entries(Date(2019, 1, 21, 5, 30), Date(2019, 1, 21, 5, 30)).getValueForTest()?.size
         )
         Assert.assertEquals(
             "description 05",
-            rep.loadEntries(
+            rep.entries(
                 Date(2019, 1, 21, 5, 30),
                 Date(2019, 1, 21, 5, 30)
             ).getValueForTest()?.get(0)?.description
@@ -153,7 +153,7 @@ class AppRepositoryTest {
     @Test
     fun loadByDateInterval2Entries() = runBlocking {
         rep.insertEntries(ENTRIES)
-        val list = rep.loadEntries(Date(2019, 1, 21), Date(2019, 1, 22)).getValueForTest()
+        val list = rep.entries(Date(2019, 1, 21), Date(2019, 1, 22)).getValueForTest()
         Assert.assertEquals(3, list?.size)
         Assert.assertEquals("description 04", list?.get(0)?.description)
         Assert.assertEquals("description 06", list?.get(2)?.description)
@@ -162,85 +162,85 @@ class AppRepositoryTest {
     @Test
     fun loadByDateInterval3Entries() = runBlocking {
         rep.insertEntries(ENTRIES)
-        val list = rep.loadEntries(Date(2019, 1, 1), Date(2019, 1, 1)).getValueForTest()
+        val list = rep.entries(Date(2019, 1, 1), Date(2019, 1, 1)).getValueForTest()
         Assert.assertEquals(0, list?.size)
     }
 
     @Test
     fun initLocation() {
-        Assert.assertEquals(0, rep.loadLocation().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.locations().getValueForTest()?.size)
     }
 
     @Test
     fun insert1Location() = runBlocking {
-        Assert.assertEquals(0, rep.loadLocation().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.locations().getValueForTest()?.size)
         rep.insertLocation(LocationRep(0, "LocationRep"))
-        Assert.assertEquals(1, rep.loadLocation().getValueForTest()?.size)
+        Assert.assertEquals(1, rep.locations().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2Location() = runBlocking {
         rep.insertLocations(LOCATIONS)
-        Assert.assertEquals(2, rep.loadLocation().getValueForTest()?.size)
+        Assert.assertEquals(2, rep.locations().getValueForTest()?.size)
 
     }
 
     @Test
     fun loadLocation() = runBlocking {
         rep.insertLocations(LOCATIONS)
-        Assert.assertEquals("LocationRep 01", rep.loadLocation().getValueForTest()?.get(0)?.value)
-        Assert.assertEquals(2, rep.loadLocation().getValueForTest()?.get(0)?.id)
+        Assert.assertEquals("LocationRep 01", rep.locations().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, rep.locations().getValueForTest()?.get(0)?.id)
     }
 
     @Test
     fun deleteLocation() = runBlocking {
-        Assert.assertEquals(0, rep.loadLocation().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.locations().getValueForTest()?.size)
         rep.insertLocation(LocationRep(0, "LocationRep"))
-        val locations = rep.loadLocation().getValueForTest()
+        val locations = rep.locations().getValueForTest()
         Assert.assertEquals(1, locations?.size)
         val location = locations?.get(0)
         Assert.assertNotNull(location)
         if (location != null) rep.deleteLocation(location)
-        Assert.assertEquals(0, rep.loadLocation().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.locations().getValueForTest()?.size)
     }
 
     @Test
     fun initProperty() {
-        Assert.assertEquals(0, rep.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.properties().getValueForTest()?.size)
     }
 
     @Test
     fun insert1Property() = runBlocking {
-        Assert.assertEquals(0, rep.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.properties().getValueForTest()?.size)
         rep.insertProperty(PropertyRep(0, "PropertyRep", "Value"))
-        Assert.assertEquals(1, rep.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(1, rep.properties().getValueForTest()?.size)
 
     }
 
     @Test
     fun insert2Property() = runBlocking {
         rep.insertProperties(PROPERTIES)
-        Assert.assertEquals(2, rep.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(2, rep.properties().getValueForTest()?.size)
 
     }
 
     @Test
     fun loadProperty() = runBlocking {
         rep.insertProperties(PROPERTIES)
-        Assert.assertEquals("PropertyRep 01", rep.loadProperties().getValueForTest()?.get(0)?.name)
-        Assert.assertEquals("Value 01", rep.loadProperties().getValueForTest()?.get(0)?.value)
-        Assert.assertEquals(2, rep.loadProperties().getValueForTest()?.get(0)?.id)
+        Assert.assertEquals("PropertyRep 01", rep.properties().getValueForTest()?.get(0)?.name)
+        Assert.assertEquals("Value 01", rep.properties().getValueForTest()?.get(0)?.value)
+        Assert.assertEquals(2, rep.properties().getValueForTest()?.get(0)?.id)
     }
 
     @Test
     fun loadByNameProperty1() = runBlocking {
         rep.insertProperties(PROPERTIES)
-        val property01 = rep.loadProperty("PropertyRep 01").getValueForTest()
+        val property01 = rep.property("PropertyRep 01").getValueForTest()
         Assert.assertEquals("PropertyRep 01", property01?.name)
         Assert.assertEquals("Value 01", property01?.value)
         Assert.assertEquals(2, property01?.id)
-        val property02 = rep.loadProperty("PropertyRep 02").getValueForTest()
+        val property02 = rep.property("PropertyRep 02").getValueForTest()
         Assert.assertEquals("PropertyRep 02", property02?.name)
         Assert.assertEquals("Value 02", property02?.value)
         Assert.assertEquals(1, property02?.id)
@@ -249,19 +249,19 @@ class AppRepositoryTest {
     @Test
     fun loadByNameProperty2() = runBlocking {
         rep.insertProperties(PROPERTIES)
-        Assert.assertNull(rep.loadProperty("PropertyRep").getValueForTest())
+        Assert.assertNull(rep.property("PropertyRep").getValueForTest())
     }
 
     @Test
     fun deleteProperty() = runBlocking {
-        Assert.assertEquals(0, rep.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.properties().getValueForTest()?.size)
         rep.insertProperty(PropertyRep(0, "Name", "Value"))
-        val properties = rep.loadProperties().getValueForTest()
+        val properties = rep.properties().getValueForTest()
         Assert.assertEquals(1, properties?.size)
         val property = properties?.get(0)
         Assert.assertNotNull(property)
         if (property != null) rep.deleteProperty(property)
-        Assert.assertEquals(0, rep.loadProperties().getValueForTest()?.size)
+        Assert.assertEquals(0, rep.properties().getValueForTest()?.size)
     }
 
 }

@@ -3,14 +3,14 @@ package cz.ciompa.frantisek.mylifeinpain.domain
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
-import cz.ciompa.frantisek.mylifeinpain.repository.AppRepository
+import cz.ciompa.frantisek.mylifeinpain.repository.RepositoryImpl
 import cz.ciompa.frantisek.mylifeinpain.storage.AppDb
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class AppDomainTest {
+class DomainImplTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -25,8 +25,8 @@ class AppDomainTest {
             AppDb::class.java
         ).build()
 
-        val rep = AppRepository(db.dao)
-        domain = AppDomain(rep)
+        val rep = RepositoryImpl(db.dao)
+        domain = DomainImpl(rep)
     }
 
     @Test

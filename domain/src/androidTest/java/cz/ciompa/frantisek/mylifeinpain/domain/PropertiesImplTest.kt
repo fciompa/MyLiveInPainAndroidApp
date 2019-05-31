@@ -3,18 +3,18 @@ package cz.ciompa.frantisek.mylifeinpain.domain
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
-import cz.ciompa.frantisek.mylifeinpain.repository.AppRepository
+import cz.ciompa.frantisek.mylifeinpain.repository.RepositoryImpl
 import cz.ciompa.frantisek.mylifeinpain.storage.AppDb
 import kotlinx.coroutines.runBlocking
 import org.junit.*
 
-class AppPropertiesTest {
+class PropertiesImplTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
 
-    private lateinit var rep: AppRepository
+    private lateinit var rep: RepositoryImpl
 
     @Before
     fun setUp() {
@@ -24,7 +24,7 @@ class AppPropertiesTest {
             AppDb::class.java
         ).build()
 
-        rep = AppRepository(db.dao)
+        rep = RepositoryImpl(db.dao)
     }
 
     @After
@@ -33,7 +33,7 @@ class AppPropertiesTest {
 
     @Test
     fun isNewInstallation() = runBlocking {
-        val properties = AppProperties(rep)
+        val properties = PropertiesImpl(rep)
         val newInstallation1 = properties.isNewInstallation()
         Assert.assertTrue(newInstallation1.getValueForTest()!!)
         properties.setNewInstallation(false)
@@ -43,7 +43,7 @@ class AppPropertiesTest {
 
     @Test
     fun isNewInstallationValue() = runBlocking {
-        val properties = AppProperties(rep)
+        val properties = PropertiesImpl(rep)
         val newInstallation1 = properties.isNewInstallationValue()
         Assert.assertTrue(newInstallation1)
         properties.setNewInstallation(false)

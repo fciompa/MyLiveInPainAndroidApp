@@ -6,9 +6,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
-interface DaoLocation {
+interface LocationDao {
     @Query("SELECT * FROM location ORDER BY value")
-    fun loadLocations(): LiveData<List<LocationEntity>>
+    fun locations(): LiveData<List<LocationEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLocation(entity: LocationEntity)

@@ -13,12 +13,12 @@ import kotlinx.coroutines.runBlocking
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AppDomain(private val repository: Repository) : Domain {
+class DomainImpl(private val repository: Repository) : Domain {
 
     private val properties: Properties
 
     init {
-        properties = AppProperties(repository)
+        properties = PropertiesImpl(repository)
 
         if (properties.isNewInstallationValue()) {
             runBlocking {
@@ -29,7 +29,7 @@ class AppDomain(private val repository: Repository) : Domain {
     }
 
     override fun loadEntries(): LiveData<List<Entry>> {
-        return Transformations.map(repository.loadEntries()) {
+        return Transformations.map(repository.entries()) {
             val items: List<Entry> = ArrayList()
             it.forEach {
                 (items as ArrayList).add(Entry(it))
@@ -39,7 +39,7 @@ class AppDomain(private val repository: Repository) : Domain {
     }
 
     override fun loadEntries(from: Date, to: Date): LiveData<List<Entry>> {
-        return Transformations.map(repository.loadEntries(from, to)) {
+        return Transformations.map(repository.entries(from, to)) {
             val items: List<Entry> = ArrayList()
             it.forEach {
                 (items as ArrayList).add(Entry(it))
@@ -73,7 +73,7 @@ class AppDomain(private val repository: Repository) : Domain {
     }
 
     override fun loadDescription(): LiveData<List<Description>> {
-        return Transformations.map(repository.loadDescription()) {
+        return Transformations.map(repository.descriptions()) {
             val items = ArrayList<Description>()
             it.forEach {
                 items.add(Description(it))
@@ -107,7 +107,7 @@ class AppDomain(private val repository: Repository) : Domain {
     }
 
     override fun loadLocation(): LiveData<List<Location>> {
-        return Transformations.map(repository.loadLocation()) {
+        return Transformations.map(repository.locations()) {
             val items = ArrayList<Location>()
             it.forEach {
                 items.add(Location(it))

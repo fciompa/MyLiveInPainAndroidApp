@@ -8,7 +8,7 @@ import androidx.room.Query
 
 interface DescriptionDao {
     @Query("SELECT * FROM description ORDER BY value")
-    fun loadDescriptions(): LiveData<List<DescriptionEntity>>
+    fun descriptions(): LiveData<List<DescriptionEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDescription(entity: DescriptionEntity)
