@@ -1,5 +1,6 @@
 package cz.ciompa.frantisek.mylifeinpain.repository
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import cz.ciompa.frantisek.mylifeinpain.storage.*
@@ -155,13 +156,9 @@ class RepositoryImpl(private val dao: AppDao) : Repository {
 
     override fun properties(): LiveData<List<PropertyRep>> = allStorageProperties
 
-    override fun property(name: String): LiveData<PropertyRep> {
-        return Transformations.map(dao.property(name)) {
-            if (it != null)
-                PropertyRep(it)
-            else
-                null
-        }
+    override fun property(name: String): PropertyRep? {
+        val prop = dao.property(name)
+        return if (prop != null) PropertyRep(prop) else null
     }
 
     override suspend fun insertProperty(property: PropertyRep) {
@@ -189,4 +186,21 @@ class RepositoryImpl(private val dao: AppDao) : Repository {
 
         dao.deleteProperties(entries)
     }
+
+    companion object {
+
+        @Volatile
+        private lateinit var INSTANCE: RepositoryImpl
+
+        fun getInstance(context: Context): Repository {
+            synchronized(this) {
+                if (!::INSTANCE.isInitialized) {
+                    INSTANCE = RepositoryImpl(AppDb.getInstance(context).dao)
+                }
+            }
+
+            return INSTANCE
+        }
+    }
 }
+

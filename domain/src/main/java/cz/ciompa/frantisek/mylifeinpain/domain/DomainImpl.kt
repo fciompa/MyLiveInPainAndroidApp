@@ -1,14 +1,13 @@
 package cz.ciompa.frantisek.mylifeinpain.domain
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import cz.ciompa.frantisek.mylifeinpain.domain.entity.Description
 import cz.ciompa.frantisek.mylifeinpain.domain.entity.Entry
 import cz.ciompa.frantisek.mylifeinpain.domain.entity.Location
-import cz.ciompa.frantisek.mylifeinpain.repository.DescriptionRep
-import cz.ciompa.frantisek.mylifeinpain.repository.EntryRep
-import cz.ciompa.frantisek.mylifeinpain.repository.LocationRep
-import cz.ciompa.frantisek.mylifeinpain.repository.Repository
+import cz.ciompa.frantisek.mylifeinpain.repository.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import java.util.*
 import kotlin.collections.ArrayList
@@ -20,8 +19,8 @@ class DomainImpl(private val repository: Repository) : Domain {
     init {
         properties = PropertiesImpl(repository)
 
-        if (properties.isNewInstallationValue()) {
-            runBlocking {
+        runBlocking(Dispatchers.IO) {
+            if (properties.isNewInstallation()) {
                 DemoData(repository).insert()
                 properties.setNewInstallation(false)
             }
@@ -141,5 +140,18 @@ class DomainImpl(private val repository: Repository) : Domain {
     }
 
     override fun properties() = properties
+
+    companion object {
+
+        private lateinit var INSTANCE: Domain
+
+        fun getInstance(context: Context): Domain {
+            if (!::INSTANCE.isInitialized) {
+                INSTANCE = DomainImpl(RepositoryImpl.getInstance(context))
+            }
+
+            return INSTANCE
+        }
+    }
 }
 

@@ -1,46 +1,30 @@
 package cz.ciompa.frantisek.mylifeinpain.domain
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
 import cz.ciompa.frantisek.mylifeinpain.repository.PropertyRep
 import cz.ciompa.frantisek.mylifeinpain.repository.Repository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 class PropertiesImpl(val repository: Repository) : Properties {
 
-    override fun isNewInstallation(): LiveData<Boolean> {
-        return Transformations.map(repository.property(propNameNewInstallation)) {
-            it?.value?.toBoolean() ?: true
+    init {
+        runBlocking(Dispatchers.IO) {
+            if (repository.property(propNameNewInstallation) == null) {
+                repository.insertProperty(PropertyRep(0, propNameNewInstallation, true.toString()))
+            }
         }
     }
 
-    override fun isNewInstallationValue(): Boolean {
-
-        val properties = repository.property(propNameNewInstallation)
-        var value = getValueFromLiveData(properties)
-        return value?.value?.toBoolean() ?: true
+    override fun isNewInstallation(): Boolean {
+        val property = repository.property(propNameNewInstallation)
+            ?: throw RuntimeException("$propNameNewInstallation has no value")
+        return property.value.toBoolean()
     }
 
     override suspend fun setNewInstallation(newInstallation: Boolean) {
-
-        val value = getValueFromLiveData(repository.property(propNameNewInstallation))
-
-        if (value != null) {
-            repository.insertProperty(PropertyRep(value.id, propNameNewInstallation, newInstallation.toString()))
-        } else {
-            repository.insertProperty(PropertyRep(0, propNameNewInstallation, newInstallation.toString()))
-        }
-
-    }
-
-    private fun <T> getValueFromLiveData(liveData: LiveData<T>): T? {
-        var value: T? = null
-        var observer = Observer<T> {
-            value = it
-        }
-        liveData.observeForever(observer)
-        liveData.removeObserver(observer)
-        return value
+        val property = repository.property(propNameNewInstallation)
+            ?: throw RuntimeException("$propNameNewInstallation has no value")
+        repository.insertProperty(PropertyRep(property.id, propNameNewInstallation, property.toString()))
     }
 
     companion object {

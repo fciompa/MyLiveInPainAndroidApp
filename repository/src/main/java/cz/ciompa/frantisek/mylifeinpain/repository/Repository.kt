@@ -24,7 +24,7 @@ interface Repository {
     suspend fun deleteLocations(locations: List<LocationRep>)
 
     fun properties(): LiveData<List<PropertyRep>>
-    fun property(name: String): LiveData<PropertyRep>
+    fun property(name: String): PropertyRep?
     suspend fun insertProperty(property: PropertyRep)
     suspend fun insertProperties(properties: List<PropertyRep>)
     suspend fun deleteProperty(property: PropertyRep)
