@@ -16,13 +16,22 @@ class PropertiesImpl(val repository: Repository) : Properties {
 
     override fun isNewInstallationValue(): Boolean {
 
-        val properties = repository.property(Companion.propNameNewInstallation)
+        val properties = repository.property(propNameNewInstallation)
         var value = getValueFromLiveData(properties)
         return value?.value?.toBoolean() ?: true
     }
 
-    override suspend fun setNewInstallation(newInstalation: Boolean) {
-        repository.insertProperty(PropertyRep(0, propNameNewInstallation, newInstalation.toString()))
+    override suspend fun setNewInstallation(newInstallation: Boolean) {
+
+        var value = getValueFromLiveData(repository.property(propNameNewInstallation))
+
+        if (value != null) {
+            value = PropertyRep(value.id, propNameNewInstallation, newInstallation.toString())
+        } else {
+            value = PropertyRep(0, propNameNewInstallation, newInstallation.toString())
+        }
+
+        repository.insertProperty(value)
     }
 
     private fun <T> getValueFromLiveData(liveData: LiveData<T>): T? {

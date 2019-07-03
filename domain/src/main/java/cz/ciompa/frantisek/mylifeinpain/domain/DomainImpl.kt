@@ -28,7 +28,7 @@ class DomainImpl(private val repository: Repository) : Domain {
         }
     }
 
-    override fun loadEntries(): LiveData<List<Entry>> {
+    override fun entries(): LiveData<List<Entry>> {
         return Transformations.map(repository.entries()) {
             val items: List<Entry> = ArrayList()
             it.forEach {
@@ -38,7 +38,7 @@ class DomainImpl(private val repository: Repository) : Domain {
         }
     }
 
-    override fun loadEntries(from: Date, to: Date): LiveData<List<Entry>> {
+    override fun entries(from: Date, to: Date): LiveData<List<Entry>> {
         return Transformations.map(repository.entries(from, to)) {
             val items: List<Entry> = ArrayList()
             it.forEach {
@@ -72,7 +72,7 @@ class DomainImpl(private val repository: Repository) : Domain {
         repository.deleteEntries(items)
     }
 
-    override fun loadDescription(): LiveData<List<Description>> {
+    override fun descriptions(): LiveData<List<Description>> {
         return Transformations.map(repository.descriptions()) {
             val items = ArrayList<Description>()
             it.forEach {
@@ -106,7 +106,7 @@ class DomainImpl(private val repository: Repository) : Domain {
         repository.deleteDescriptions(items)
     }
 
-    override fun loadLocation(): LiveData<List<Location>> {
+    override fun locations(): LiveData<List<Location>> {
         return Transformations.map(repository.locations()) {
             val items = ArrayList<Location>()
             it.forEach {

@@ -157,7 +157,10 @@ class RepositoryImpl(private val dao: AppDao) : Repository {
 
     override fun property(name: String): LiveData<PropertyRep> {
         return Transformations.map(dao.property(name)) {
-            if (it != null) PropertyRep(it) else null
+            if (it != null)
+                PropertyRep(it)
+            else
+                null
         }
     }
 

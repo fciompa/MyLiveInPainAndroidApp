@@ -29,7 +29,7 @@ class ViewModelEntries(domain: Domain) : ViewModel() {
 //
 //            return data
 //        }
-    val entries: LiveData<List<Entry>> = domain.loadEntries()
+    val entries: LiveData<List<Entry>> = domain.entries()
 
     fun loadData() {
         viewModelScope.launch {
