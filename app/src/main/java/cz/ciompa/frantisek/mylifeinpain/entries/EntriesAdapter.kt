@@ -4,11 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import cz.ciompa.frantisek.mylifeinpain.BindAbleAdapter
 import cz.ciompa.frantisek.mylifeinpain.R
+import cz.ciompa.frantisek.mylifeinpain.databinding.ViewEntriesItemBinding
 import cz.ciompa.frantisek.mylifeinpain.domain.entity.Entry
 
 class EntriesAdapter internal constructor(context: Context) : RecyclerView.Adapter<EntriesAdapter.EntryViewHolder>(),
@@ -23,8 +24,7 @@ class EntriesAdapter internal constructor(context: Context) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: EntryViewHolder, position: Int) {
-        val current = entries[position]
-        holder.wordItemView.text = current.description
+        holder.binding.entry = entries[position]
     }
 
     override fun getItemCount(): Int {
@@ -37,7 +37,7 @@ class EntriesAdapter internal constructor(context: Context) : RecyclerView.Adapt
     }
 
     inner class EntryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val wordItemView: TextView = itemView.findViewById(R.id.textView4456)
+        val binding: ViewEntriesItemBinding = DataBindingUtil.bind(itemView)!!
     }
 
 }

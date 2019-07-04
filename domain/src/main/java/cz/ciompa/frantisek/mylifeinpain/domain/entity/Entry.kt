@@ -18,5 +18,8 @@ data class Entry(
         e.note
     )
 
+    val entryDateToString = entryDate.toString()
+    val intensityToString = intensity.toString()
+
     fun getRep() = EntryRep(id, entryDate, intensity, description, note)
 }
