@@ -5,19 +5,17 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-                name="emptyList"
-                type="boolean"
+                name="viewModel"
+                type="cz.ciompa.frantisek.mylifeinpain.entries.EntriesViewModel"
         />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".entries.ViewEntries">
+            tools:context=".entries.EntriesView">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RecyclerViewEntries"
@@ -26,8 +24,9 @@
                 android:clipToPadding="false"
                 android:paddingLeft="@dimen/margin_normal"
                 android:paddingRight="@dimen/margin_normal"
-                app:visibleGone="@{!emptyList}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:visibleGone="@{!viewModel.emptyList}"
+                app:data="@{viewModel.entries}"
                 tools:listitem="@layout/view_entries_item"/>
 
         <TextView
@@ -36,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/frg_entries_empty_list"
                 android:textSize="24sp"
-                app:visibleGone="@{emptyList}"
+                app:visibleGone="@{viewModel.emptyList}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

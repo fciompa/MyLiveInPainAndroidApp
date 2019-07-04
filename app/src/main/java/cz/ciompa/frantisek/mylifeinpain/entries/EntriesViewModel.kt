@@ -9,11 +9,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
-class ViewModelEntries(
+class EntriesViewModel(
     private var domain: Domain
 ) : ViewModel() {
 
     val entries: LiveData<List<Entry>> = domain.entries()
+    val emptyList = entries.value?.isEmpty()
 
     fun insert(entryDate: Date, intensity: Int, description: String, note: String) {
 

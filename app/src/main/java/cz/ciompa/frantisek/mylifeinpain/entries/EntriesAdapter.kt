@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import cz.ciompa.frantisek.mylifeinpain.BindAbleAdapter
 import cz.ciompa.frantisek.mylifeinpain.R
 import cz.ciompa.frantisek.mylifeinpain.domain.entity.Entry
 
-class EntriesAdapter internal constructor(context: Context) : RecyclerView.Adapter<EntriesAdapter.EntryViewHolder>() {
+class EntriesAdapter internal constructor(context: Context) : RecyclerView.Adapter<EntriesAdapter.EntryViewHolder>(),
+    BindAbleAdapter<Entry> {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var entries = emptyList<Entry>()
@@ -28,8 +31,8 @@ class EntriesAdapter internal constructor(context: Context) : RecyclerView.Adapt
         return entries.size
     }
 
-    internal fun setEntities(entries: List<Entry>) {
-        this.entries = entries
+    override fun setData(items: LiveData<List<Entry>>) {
+        this.entries = items.value ?: emptyList()
         notifyDataSetChanged()
     }
 

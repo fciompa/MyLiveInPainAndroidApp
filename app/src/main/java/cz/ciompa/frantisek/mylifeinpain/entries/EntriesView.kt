@@ -7,53 +7,43 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import cz.ciompa.frantisek.mylifeinpain.R
 import cz.ciompa.frantisek.mylifeinpain.databinding.ViewEntriesBinding
 import cz.ciompa.frantisek.mylifeinpain.domain.Domain
 import cz.ciompa.frantisek.mylifeinpain.domain.DomainImpl
 
 /**
- * A simple [Fragment] subclass.
+ * inspiration for improvement:
+ * - https://github.com/kozmi55/Bindable-Adapter-Example
+ * - https://github.com/phunware/blog-android-clean-coding-approach
+ * - https://github.com/alphamu/android-MVVM-DataBinding-RecyclerViewExample
  *
  */
-class ViewEntries : Fragment() {
+class EntriesView : Fragment() {
 
-    private lateinit var bind: ViewEntriesBinding
-    private lateinit var viewModelEntries: ViewModelEntries
+    private lateinit var binding: ViewEntriesBinding
+    private lateinit var entriesViewModel: EntriesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        bind = DataBindingUtil.inflate(inflater, R.layout.view_entries, container, false)
-        return bind.root
+        binding = DataBindingUtil.inflate(inflater, R.layout.view_entries, container, false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val ctx = activity?.applicationContext
-        if (ctx != null) {
-            val recyclerView = bind.RecyclerViewEntries
-            val entriesAdapter = EntriesAdapter(ctx)
-            recyclerView?.adapter = entriesAdapter
-            recyclerView?.layoutManager = LinearLayoutManager(context)
-
-            viewModelEntries = ViewModelProviders.of(this, ViewModelFactory(DomainImpl.getInstance(ctx)))
-                .get(ViewModelEntries::class.java)
-            viewModelEntries.entries.observe(this, Observer {
-                it?.let {
-                    bind.emptyList = it.size == 0
-                    entriesAdapter.setEntities(it)
-                }
-            })
-        }
+        binding.RecyclerViewEntries.adapter = EntriesAdapter(requireContext())
+        entriesViewModel = ViewModelProviders.of(this, ViewModelFactory(DomainImpl.getInstance(requireContext())))
+            .get(EntriesViewModel::class.java)
+        binding.viewModel = entriesViewModel
     }
 
     class ViewModelFactory(private var domain: Domain) : ViewModelProvider.Factory {
@@ -61,14 +51,12 @@ class ViewEntries : Fragment() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
             try {
-                return ViewModelEntries(domain) as T
+                return EntriesViewModel(domain) as T
             } catch (e: java.lang.InstantiationException) {
                 throw RuntimeException("Cannot create an instance of $modelClass", e)
             } catch (e: IllegalAccessException) {
                 throw RuntimeException("Cannot create an instance of $modelClass", e)
             }
-
         }
     }
-
 }

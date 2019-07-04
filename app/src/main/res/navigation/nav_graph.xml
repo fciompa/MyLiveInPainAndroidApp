@@ -8,7 +8,7 @@
 
     <fragment
             android:id="@+id/nav_entries"
-            android:name="cz.ciompa.frantisek.mylifeinpain.entries.ViewEntries"
+            android:name="cz.ciompa.frantisek.mylifeinpain.entries.EntriesView"
             android:label="@string/frg_entries_title"
             tools:layout="@layout/view_entries">
 
