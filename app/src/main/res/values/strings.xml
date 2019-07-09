@@ -9,4 +9,5 @@
     <string name="frg_description_list_title">Description list</string>
     <string name="frg_location_list_title">Location list</string>
     <string name="frg_entries_empty_list">Entries list is empty</string>
+    <string name="view_entries_item_button_save">Save</string>
 </resources>

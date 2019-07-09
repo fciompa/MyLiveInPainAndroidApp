@@ -7,8 +7,8 @@
     <data>
 
         <variable
-                name="entry"
-                type="cz.ciompa.frantisek.mylifeinpain.domain.entity.Entry"/>
+                name="viewModel"
+                type="cz.ciompa.frantisek.mylifeinpain.entry.EntryViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,22 +19,35 @@
             >
 
         <TextView
+                android:text="@{viewModel.entry.idToString}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewId"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="entry.id"
+                android:layout_marginStart="8dp"/>
+
+        <TextView
                 android:id="@+id/textViewDescription"
-                android:text="@{entry.description}"
+                android:text="@{viewModel.entry.description}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                tools:text="entry.description"/>
+                tools:text="entry.description"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textViewId"/>
 
         <TextView
                 android:id="@+id/textViewEntryDate"
-                android:text="@{entry.entryDateToString}"
+                android:text="@{viewModel.entry.entryDateToString}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -46,7 +59,7 @@
                 tools:text="entry.entryDateToString"/>
 
         <TextView
-                android:text="@{entry.intensityToString}"
+                android:text="@{viewModel.entry.intensityToString}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewIntensity"
@@ -59,7 +72,7 @@
                 tools:text="entry.intensityToString"/>
 
         <TextView
-                android:text="@{entry.note}"
+                android:text="@{viewModel.entry.note}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewNote"
@@ -71,19 +84,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewIntensity"
                 tools:text="entry.note"/>
 
-        <Button
-                android:text="Save"
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSave"
+                android:text="@string/view_entries_item_button_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/buttonSave"
                 android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/colorAccent"
+                android:layout_marginTop="8dp"
+                android:onClick="@{() -> viewModel.save()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewNote"
-                android:layout_marginTop="8dp"
                 app:layout_constraintVertical_bias="0.0"
-                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textColor="@color/colorAccent"/>
+                />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

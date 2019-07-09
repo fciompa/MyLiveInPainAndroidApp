@@ -16,17 +16,17 @@ class RepositoryImplTest {
     )
 
     private val ENTRIES = listOf(
-        EntryRep(0, Date(2019, 1, 20, 4, 35), 3, "description 03", "note 03"),
-        EntryRep(0, Date(2019, 1, 20, 4, 30), 2, "description 02", "note 02"),
-        EntryRep(0, Date(2019, 1, 20, 4, 25), 1, "description 01", "note 01"),
+        EntryRep(0, Date(119, 1, 20, 4, 35), 3, "description 03", "note 03"),
+        EntryRep(0, Date(119, 1, 20, 4, 30), 2, "description 02", "note 02"),
+        EntryRep(0, Date(119, 1, 20, 4, 25), 1, "description 01", "note 01"),
 
-        EntryRep(0, Date(2019, 1, 21, 5, 35), 3, "description 06", "note 06"),
-        EntryRep(0, Date(2019, 1, 21, 5, 30), 2, "description 05", "note 05"),
-        EntryRep(0, Date(2019, 1, 21, 5, 25), 1, "description 04", "note 04"),
+        EntryRep(0, Date(119, 1, 21, 5, 35), 3, "description 06", "note 06"),
+        EntryRep(0, Date(119, 1, 21, 5, 30), 2, "description 05", "note 05"),
+        EntryRep(0, Date(119, 1, 21, 5, 25), 1, "description 04", "note 04"),
 
-        EntryRep(0, Date(2019, 1, 22, 6, 35), 3, "description 09", "note 09"),
-        EntryRep(0, Date(2019, 1, 22, 6, 30), 2, "description 08", "note 08"),
-        EntryRep(0, Date(2019, 1, 22, 6, 25), 1, "description 07", "note 07")
+        EntryRep(0, Date(119, 1, 22, 6, 35), 3, "description 09", "note 09"),
+        EntryRep(0, Date(119, 1, 22, 6, 30), 2, "description 08", "note 08"),
+        EntryRep(0, Date(119, 1, 22, 6, 25), 1, "description 07", "note 07")
     )
 
     private val LOCATIONS = listOf(
@@ -111,7 +111,7 @@ class RepositoryImplTest {
     @Test
     fun insert1Entries() = runBlocking {
         Assert.assertEquals(0, rep.entries().getValueForTest()?.size)
-        rep.insertEntry(EntryRep(0, Date(2019, 1, 20, 4, 35), 1, "description", "note"))
+        rep.insertEntry(EntryRep(0, Date(119, 1, 20, 4, 35), 1, "description", "note"))
         Assert.assertEquals(1, rep.entries().getValueForTest()?.size)
 
     }
@@ -127,7 +127,7 @@ class RepositoryImplTest {
         rep.insertEntries(ENTRIES)
         val entry0 = rep.entries().getValueForTest()?.get(0)
 
-        Assert.assertEquals(Date(2019, 1, 22, 6, 35).time, entry0?.entryDate?.time)
+        Assert.assertEquals(Date(119, 1, 22, 6, 35).time, entry0?.entryDate?.time)
         Assert.assertEquals(3, entry0?.intensity)
         Assert.assertEquals("description 09", entry0?.description)
         Assert.assertEquals("note 09", entry0?.note)
@@ -139,13 +139,13 @@ class RepositoryImplTest {
         rep.insertEntries(ENTRIES)
         Assert.assertEquals(
             1,
-            rep.entries(Date(2019, 1, 21, 5, 30), Date(2019, 1, 21, 5, 30)).getValueForTest()?.size
+            rep.entries(Date(119, 1, 21, 5, 30), Date(119, 1, 21, 5, 30)).getValueForTest()?.size
         )
         Assert.assertEquals(
             "description 05",
             rep.entries(
-                Date(2019, 1, 21, 5, 30),
-                Date(2019, 1, 21, 5, 30)
+                Date(119, 1, 21, 5, 30),
+                Date(119, 1, 21, 5, 30)
             ).getValueForTest()?.get(0)?.description
         )
     }
@@ -153,7 +153,7 @@ class RepositoryImplTest {
     @Test
     fun loadByDateInterval2Entries() = runBlocking {
         rep.insertEntries(ENTRIES)
-        val list = rep.entries(Date(2019, 1, 21), Date(2019, 1, 22)).getValueForTest()
+        val list = rep.entries(Date(119, 1, 21), Date(119, 1, 22)).getValueForTest()
         Assert.assertEquals(3, list?.size)
         Assert.assertEquals("description 04", list?.get(0)?.description)
         Assert.assertEquals("description 06", list?.get(2)?.description)
@@ -162,7 +162,7 @@ class RepositoryImplTest {
     @Test
     fun loadByDateInterval3Entries() = runBlocking {
         rep.insertEntries(ENTRIES)
-        val list = rep.entries(Date(2019, 1, 1), Date(2019, 1, 1)).getValueForTest()
+        val list = rep.entries(Date(119, 1, 1), Date(119, 1, 1)).getValueForTest()
         Assert.assertEquals(0, list?.size)
     }
 

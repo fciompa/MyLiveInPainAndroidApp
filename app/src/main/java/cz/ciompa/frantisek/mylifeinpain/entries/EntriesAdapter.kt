@@ -10,9 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import cz.ciompa.frantisek.mylifeinpain.BindAbleAdapter
 import cz.ciompa.frantisek.mylifeinpain.R
 import cz.ciompa.frantisek.mylifeinpain.databinding.ViewEntriesItemBinding
+import cz.ciompa.frantisek.mylifeinpain.domain.DomainImpl
 import cz.ciompa.frantisek.mylifeinpain.domain.entity.Entry
+import cz.ciompa.frantisek.mylifeinpain.entry.EntryViewModel
+import java.util.*
 
-class EntriesAdapter internal constructor(context: Context) : RecyclerView.Adapter<EntriesAdapter.EntryViewHolder>(),
+class EntriesAdapter internal constructor(private val context: Context) :
+    RecyclerView.Adapter<EntriesAdapter.EntryViewHolder>(),
     BindAbleAdapter<Entry> {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -24,7 +28,7 @@ class EntriesAdapter internal constructor(context: Context) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: EntryViewHolder, position: Int) {
-        holder.binding.entry = entries[position]
+        holder.binding.viewModel = EntryViewModel(DomainImpl.getInstance(context), entries[position])
     }
 
     override fun getItemCount(): Int {
@@ -32,7 +36,10 @@ class EntriesAdapter internal constructor(context: Context) : RecyclerView.Adapt
     }
 
     override fun setData(items: LiveData<List<Entry>>) {
-        this.entries = items.value ?: emptyList()
+        val newItems: MutableList<Entry> = arrayListOf()
+        newItems.add(Entry(0, Date(), 0, "New entry", "Note of new entry"))
+        newItems.addAll(items.value ?: emptyList())
+        entries = newItems
         notifyDataSetChanged()
     }
 

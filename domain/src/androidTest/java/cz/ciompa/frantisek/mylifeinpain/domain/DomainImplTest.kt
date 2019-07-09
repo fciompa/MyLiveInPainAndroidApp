@@ -52,40 +52,40 @@ class DomainImplTest {
 
         val entry0 = entries?.get(0)
         Assert.assertEquals(7, entry0?.id)
-        Assert.assertEquals(Date(2019, 1, 22, 6, 35), entry0?.entryDate)
+        Assert.assertEquals(Date(119, 1, 22, 6, 35), entry0?.entryDate)
         Assert.assertEquals("description 09", entry0?.description)
         Assert.assertEquals("note 09", entry0?.note)
 
         val entry1 = entries?.get(1)
         Assert.assertEquals(8, entry1?.id)
-        Assert.assertEquals(Date(2019, 1, 22, 6, 30), entry1?.entryDate)
+        Assert.assertEquals(Date(119, 1, 22, 6, 30), entry1?.entryDate)
         Assert.assertEquals("description 08", entry1?.description)
         Assert.assertEquals("note 08", entry1?.note)
 
         val entry2 = entries?.get(2)
         Assert.assertEquals(9, entry2?.id)
-        Assert.assertEquals(Date(2019, 1, 22, 6, 25), entry2?.entryDate)
+        Assert.assertEquals(Date(119, 1, 22, 6, 25), entry2?.entryDate)
         Assert.assertEquals("description 07", entry2?.description)
         Assert.assertEquals("note 07", entry2?.note)
 
         val entry3 = entries?.get(3)
         Assert.assertEquals(4, entry3?.id)
-        Assert.assertEquals(Date(2019, 1, 21, 5, 35), entry3?.entryDate)
+        Assert.assertEquals(Date(119, 1, 21, 5, 35), entry3?.entryDate)
         Assert.assertEquals("description 06", entry3?.description)
         Assert.assertEquals("note 06", entry3?.note)
     }
 
     @Test
     fun entriesFromTo1() {
-        val from = Date(2019, 1, 20, 4, 35)
-        val to = Date(2019, 1, 20, 4, 35)
+        val from = Date(119, 1, 20, 4, 35)
+        val to = Date(119, 1, 20, 4, 35)
         val entries = domain.entries(from, to).getValueForTest()
 
         Assert.assertEquals(1, entries?.size)
 
         val entry0 = entries?.get(0)
         Assert.assertEquals(1, entry0?.id)
-        Assert.assertEquals(Date(2019, 1, 20, 4, 35), entry0?.entryDate)
+        Assert.assertEquals(Date(119, 1, 20, 4, 35), entry0?.entryDate)
         Assert.assertEquals("description 03", entry0?.description)
         Assert.assertEquals("note 03", entry0?.note)
 
@@ -93,21 +93,21 @@ class DomainImplTest {
 
     @Test
     fun entriesFromTo2() {
-        val from = Date(2019, 1, 20, 4, 26)
-        val to = Date(2019, 1, 20, 4, 35)
+        val from = Date(119, 1, 20, 4, 26)
+        val to = Date(119, 1, 20, 4, 35)
         val entries = domain.entries(from, to).getValueForTest()
 
         Assert.assertEquals(2, entries?.size)
 
         val entry0 = entries?.get(0)
         Assert.assertEquals(2, entry0?.id)
-        Assert.assertEquals(Date(2019, 1, 20, 4, 30), entry0?.entryDate)
+        Assert.assertEquals(Date(119, 1, 20, 4, 30), entry0?.entryDate)
         Assert.assertEquals("description 02", entry0?.description)
         Assert.assertEquals("note 02", entry0?.note)
 
         val entry1 = entries?.get(1)
         Assert.assertEquals(1, entry1?.id)
-        Assert.assertEquals(Date(2019, 1, 20, 4, 35), entry1?.entryDate)
+        Assert.assertEquals(Date(119, 1, 20, 4, 35), entry1?.entryDate)
         Assert.assertEquals("description 03", entry1?.description)
         Assert.assertEquals("note 03", entry1?.note)
     }
@@ -118,7 +118,7 @@ class DomainImplTest {
 
         Assert.assertEquals(9, entries1?.size)
 
-        domain.insertEntry(Entry(0, Date(2019, 1, 1), 3, "description for new entry", "note of new entry"))
+        domain.insertEntry(Entry(0, Date(119, 1, 1), 3, "description for new entry", "note of new entry"))
 
         val entries2 = domain.entries().getValueForTest()
         Assert.assertEquals(10, entries2?.size)
@@ -131,8 +131,8 @@ class DomainImplTest {
         Assert.assertEquals(9, entries1?.size)
 
         val newEntries = listOf(
-            Entry(0, Date(2019, 1, 1), 3, "description for new entry", "note of new entry"),
-            Entry(0, Date(2019, 1, 1), 3, "description for new entry", "note of new entry")
+            Entry(0, Date(119, 1, 1), 3, "description for new entry", "note of new entry"),
+            Entry(0, Date(119, 1, 1), 3, "description for new entry", "note of new entry")
         )
 
         domain.insertEntries(newEntries)
@@ -146,7 +146,7 @@ class DomainImplTest {
         val entries1 = domain.entries().getValueForTest()
         Assert.assertEquals(9, entries1?.size)
 
-        val date = Date(2019, 1, 21, 5, 35)
+        val date = Date(119, 1, 21, 5, 35)
         val entry = domain.entries(date, date).getValueForTest()
         Assert.assertEquals(1, entry?.size)
 
@@ -168,8 +168,8 @@ class DomainImplTest {
         val entries1 = domain.entries().getValueForTest()
         Assert.assertEquals(9, entries1?.size)
 
-        val from = Date(2019, 1, 21, 0, 0)
-        val to = Date(2019, 1, 21, 24, 0)
+        val from = Date(119, 1, 21, 0, 0)
+        val to = Date(119, 1, 21, 24, 0)
         val entries = domain.entries(from, to).getValueForTest()
         Assert.assertEquals(3, entries?.size)
 
