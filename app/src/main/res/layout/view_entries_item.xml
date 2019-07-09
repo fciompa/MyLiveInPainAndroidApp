@@ -19,7 +19,7 @@
             >
 
         <TextView
-                android:text="@{viewModel.entry.idToString}"
+                android:text="@{viewModel.idToString}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewId"
@@ -31,9 +31,9 @@
                 tools:text="entry.id"
                 android:layout_marginStart="8dp"/>
 
-        <TextView
+        <EditText
                 android:id="@+id/textViewDescription"
-                android:text="@{viewModel.entry.description}"
+                android:text="@={viewModel.description}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -47,7 +47,7 @@
 
         <TextView
                 android:id="@+id/textViewEntryDate"
-                android:text="@{viewModel.entry.entryDateToString}"
+                android:text="@{viewModel.entryDateToString}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -59,7 +59,7 @@
                 tools:text="entry.entryDateToString"/>
 
         <TextView
-                android:text="@{viewModel.entry.intensityToString}"
+                android:text="@{viewModel.intensityToString}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewIntensity"
@@ -72,7 +72,7 @@
                 tools:text="entry.intensityToString"/>
 
         <TextView
-                android:text="@{viewModel.entry.note}"
+                android:text="@{viewModel.note}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewNote"
