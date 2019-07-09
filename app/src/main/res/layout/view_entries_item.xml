@@ -19,7 +19,7 @@
             >
 
         <TextView
-                android:text="@{viewModel.idToString}"
+                android:text="@{viewModel.id}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewId"
@@ -47,7 +47,7 @@
 
         <TextView
                 android:id="@+id/textViewEntryDate"
-                android:text="@{viewModel.entryDateToString}"
+                android:text="@{viewModel.entryDate}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -59,7 +59,7 @@
                 tools:text="entry.entryDateToString"/>
 
         <TextView
-                android:text="@{viewModel.intensityToString}"
+                android:text="@{viewModel.intensity}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewIntensity"

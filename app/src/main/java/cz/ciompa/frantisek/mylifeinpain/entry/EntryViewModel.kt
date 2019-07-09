@@ -13,27 +13,16 @@ class EntryViewModel(
     private val entry: Entry
 ) : ViewModel() {
 
-    var id: Int
-    var entryDate: Date
-    var intensity: Int
-    var description: String
-    var note: String
-
-    init {
-        id = entry.id
-        entryDate = entry.entryDate
-        intensity = entry.intensity
-        description = entry.description
-        note = entry.note
-    }
-
-    val idToString = id.toString()
-    val entryDateToString = entryDate.toString()
-    val intensityToString = intensity.toString()
+    var id: String = entry.id.toString()
+    var entryDate: String = entry.entryDate.toString()
+    var intensity: String = entry.intensity.toString()
+    var description: String = entry.description
+    var note: String = entry.note
 
     fun save() {
         viewModelScope.launch(Dispatchers.IO) {
-            domain.insertEntry(Entry(id, entryDate, intensity, description, note))
+            domain.insertEntry(Entry(id.toInt(), Date(entryDate), intensity.toInt(), description, note))
+
         }
     }
 
