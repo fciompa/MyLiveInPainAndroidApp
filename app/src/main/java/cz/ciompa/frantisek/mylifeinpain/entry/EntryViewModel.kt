@@ -27,7 +27,8 @@ class EntryViewModel(
 
     fun save() {
         viewModelScope.launch(Dispatchers.IO) {
-            domain.insertEntry(Entry(id.toInt(), Date(entryDate), intensity.toInt(), description, note))
+            //            domain.insertEntry(Entry(id.toInt(), Date(entryDate), intensity.toInt(), location, description, note))
+            domain.insertEntry(Entry(id.toInt(), Date(), intensity.toInt(), location, description, note))
 
         }
     }
