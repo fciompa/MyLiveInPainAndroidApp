@@ -15,6 +15,10 @@ import cz.ciompa.frantisek.mylifeinpain.domain.entity.Entry
 import cz.ciompa.frantisek.mylifeinpain.entry.EntryViewModel
 import java.util.*
 
+/**
+ * implement ListAdapter!!!
+ * https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter.html
+ */
 class EntriesAdapter internal constructor(private val context: Context) :
     RecyclerView.Adapter<EntriesAdapter.EntryViewHolder>(),
     BindAbleAdapter<Entry> {

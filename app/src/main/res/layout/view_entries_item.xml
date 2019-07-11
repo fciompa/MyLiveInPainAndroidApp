@@ -19,19 +19,20 @@
             >
 
         <TextView
+                android:id="@+id/textViewId"
                 android:text="@{viewModel.id}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/textViewId"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="entry.id"
-                android:layout_marginStart="8dp"/>
+                />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/textViewDescription"
                 android:text="@={viewModel.description}"
                 android:layout_width="match_parent"
@@ -43,20 +44,39 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 tools:text="entry.description"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textViewId"/>
+                app:layout_constraintTop_toBottomOf="@+id/textViewId"
+                android:inputType="text"
+                android:importantForAutofill="no"
+                tools:targetApi="o"/>
 
         <TextView
                 android:id="@+id/textViewEntryDate"
                 android:text="@{viewModel.entryDate}"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDescription"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
+                tools:text="entry.entryDate"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="entry.entryDateToString"/>
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/textViewEntryTime"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"/>
+
+        <TextView
+                android:id="@+id/textViewEntryTime"
+                android:text="@{viewModel.entryTime}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDescription"
+                app:layout_constraintStart_toEndOf="@+id/textViewEntryDate"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="entry.entryTime"/>
 
         <TextView
                 android:text="@{viewModel.intensity}"
@@ -66,12 +86,12 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textViewEntryDate"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEntryTime"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="entry.intensityToString"/>
+                tools:text="entry.intensity"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatEditText
                 android:text="@{viewModel.note}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
