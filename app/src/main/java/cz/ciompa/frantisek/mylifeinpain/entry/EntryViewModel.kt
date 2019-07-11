@@ -21,6 +21,7 @@ class EntryViewModel(
     var entryDate: String = dateFormat.format(entry.entryDate)
     var entryTime: String = timeFormat.format(entry.entryDate)
     var intensity: String = entry.intensity.toString()
+    var location: String = entry.location
     var description: String = entry.description
     var note: String = entry.note
 

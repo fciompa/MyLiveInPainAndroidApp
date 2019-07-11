@@ -7,6 +7,7 @@ data class Entry(
     val id: Int = 0,
     val entryDate: Date = Date(),
     val intensity: Int = 0,
+    val location: String = "",
     val description: String = "",
     val note: String = ""
 ) {
@@ -18,6 +19,6 @@ data class Entry(
         e.note
     )
 
-    fun getRep() = EntryRep(id, entryDate, intensity, description, note)
+    fun getRep() = EntryRep(id, entryDate, intensity, location, description, note)
 
 }

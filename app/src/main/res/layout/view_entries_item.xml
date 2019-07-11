@@ -32,79 +32,114 @@
                 tools:text="entry.id"
                 />
 
-        <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/textViewDescription"
-                android:text="@={viewModel.description}"
+        <TextView
+                android:id="@+id/textViewIntensity"
+                android:text="@{viewModel.intensity}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                tools:text="entry.description"
-                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/textViewId"
-                android:inputType="text"
-                android:importantForAutofill="no"
-                tools:targetApi="o"/>
+                tools:text="entry.intensity"
+                />
 
         <TextView
                 android:id="@+id/textViewEntryDate"
                 android:text="@{viewModel.entryDate}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDescription"
-                tools:text="entry.entryDate"
-                android:layout_marginBottom="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toStartOf="@+id/textViewEntryTime"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="4dp"/>
+                app:layout_constraintTop_toBottomOf="@+id/textViewIntensity"
+                tools:text="entry.entryDate"
+                />
 
         <TextView
                 android:id="@+id/textViewEntryTime"
                 android:text="@{viewModel.entryTime}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="4dp"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDescription"
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toEndOf="@+id/textViewEntryDate"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:text="entry.entryTime"/>
-
-        <TextView
-                android:text="@{viewModel.intensity}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textViewIntensity"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textViewEntryTime"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="entry.intensity"/>
-
-        <androidx.appcompat.widget.AppCompatEditText
-                android:text="@{viewModel.note}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textViewNote"
-                android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewIntensity"
-                tools:text="entry.note"/>
+                tools:text="entry.entryTime"
+                />
 
-        <com.google.android.material.button.MaterialButton
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:id="@+id/textInputLayoutLocation"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEntryDate"
+                android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/viewEntriesItemLocationHint"
+                    android:id="@+id/textInputEditTextLocation"
+                    android:text="@={viewModel.location}"
+                    tools:text=""/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutLocation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditTextDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/view_entries_item_description"
+                    android:text="@={viewModel.description}"
+                    />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:id="@+id/textInputLayoutNote"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDescription"
+                >
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/TextInputEditTextNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/viewEntriesItemNote"
+                    />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--<com.google.android.material.button.MaterialButton-->
+        <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonSave"
                 android:text="@string/view_entries_item_button_save"
                 android:layout_width="wrap_content"
@@ -112,13 +147,11 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:textColor="@color/colorAccent"
-                android:layout_marginTop="8dp"
                 android:onClick="@{() -> viewModel.save()}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewNote"
-                app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintEnd_toEndOf="parent"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutNote"
+                android:layout_marginTop="8dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
