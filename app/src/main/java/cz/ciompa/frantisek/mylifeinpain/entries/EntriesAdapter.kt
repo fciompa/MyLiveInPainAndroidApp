@@ -36,11 +36,13 @@ class EntriesAdapter(private val context: Context, private val entryViewModelIte
     override fun onBindViewHolder(holder: EntryViewHolder, position: Int) {
 
         if (!entryViewModelItemList.contains(position)) {
-            entryViewModelItemList.put(position, EntryViewModel(DomainImpl.getInstance(context), getItem(position)))
+            entryViewModelItemList[position] = EntryViewModel(DomainImpl.getInstance(context), getItem(position))
         }
 
         val entryViewModel = entryViewModelItemList[position] as EntryViewModel
         holder.binding.viewModel = entryViewModel
+        holder.binding.executePendingBindings()
+
         entryViewModel.showDataPickerDialog.observe(context as LifecycleOwner, androidx.lifecycle.Observer {
             if (it.getContentIfNotHandled() == true) {
                 val activity = context as AppCompatActivity
@@ -53,7 +55,6 @@ class EntriesAdapter(private val context: Context, private val entryViewModelIte
                 val activity = context as AppCompatActivity
                 TimePickerView.newInstance(entryViewModel).show(activity.supportFragmentManager, "timePicker")
             }
-
         })
     }
 
