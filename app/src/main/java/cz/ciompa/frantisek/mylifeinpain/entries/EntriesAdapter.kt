@@ -4,8 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,10 +17,12 @@ import cz.ciompa.frantisek.mylifeinpain.R
 import cz.ciompa.frantisek.mylifeinpain.databinding.ViewEntriesItemBinding
 import cz.ciompa.frantisek.mylifeinpain.domain.DomainImpl
 import cz.ciompa.frantisek.mylifeinpain.domain.entity.Entry
+import cz.ciompa.frantisek.mylifeinpain.entry.DatePickerView
 import cz.ciompa.frantisek.mylifeinpain.entry.EntryViewModel
+import cz.ciompa.frantisek.mylifeinpain.entry.TimePickerView
 import java.util.*
 
-class EntriesAdapter internal constructor(private val context: Context) :
+class EntriesAdapter(private val context: Context, private val entryViewModelItemList: MutableMap<Int, ViewModel>) :
     ListAdapter<Entry, EntriesAdapter.EntryViewHolder>(EntryDiffCallback),
     BindAbleAdapter<Entry> {
 
@@ -29,7 +34,27 @@ class EntriesAdapter internal constructor(private val context: Context) :
     }
 
     override fun onBindViewHolder(holder: EntryViewHolder, position: Int) {
-        holder.binding.viewModel = EntryViewModel(DomainImpl.getInstance(context), getItem(position))
+
+        if (!entryViewModelItemList.contains(position)) {
+            entryViewModelItemList.put(position, EntryViewModel(DomainImpl.getInstance(context), getItem(position)))
+        }
+
+        val entryViewModel = entryViewModelItemList[position] as EntryViewModel
+        holder.binding.viewModel = entryViewModel
+        entryViewModel.showDataPickerDialog.observe(context as LifecycleOwner, androidx.lifecycle.Observer {
+            if (it.getContentIfNotHandled() == true) {
+                val activity = context as AppCompatActivity
+                DatePickerView.newInstance(entryViewModel).show(activity.supportFragmentManager, "datePicker")
+            }
+        })
+
+        entryViewModel.showTimePickerDialog.observe(context as LifecycleOwner, androidx.lifecycle.Observer {
+            if (it.getContentIfNotHandled() == true) {
+                val activity = context as AppCompatActivity
+                TimePickerView.newInstance(entryViewModel).show(activity.supportFragmentManager, "timePicker")
+            }
+
+        })
     }
 
     override fun setData(items: LiveData<List<Entry>>) {

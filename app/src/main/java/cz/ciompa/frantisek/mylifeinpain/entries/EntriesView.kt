@@ -41,13 +41,14 @@ class EntriesView : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        binding.RecyclerViewEntries.adapter = EntriesAdapter(requireContext())
-        binding.RecyclerViewEntries.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayout.VERTICAL))
-
-        binding.viewModel = ViewModelProviders.of(
+        val viewModel = ViewModelProviders.of(
             this,
             ViewModelFactory(DomainImpl.getInstance(requireContext()))
         ).get(EntriesViewModel::class.java)
+
+        binding.RecyclerViewEntries.adapter = EntriesAdapter(requireContext(), viewModel.entryViewModelItemList)
+        binding.viewModel = viewModel
+        binding.RecyclerViewEntries.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayout.VERTICAL))
     }
 
     class ViewModelFactory(private var domain: Domain) : ViewModelProvider.Factory {
