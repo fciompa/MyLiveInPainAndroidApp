@@ -32,14 +32,14 @@ class DatePickerView : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     companion object {
 
-        val ARG = "EntryViewModel"
+        const val ARG = "EntryViewModel"
 
         fun newInstance(viewModel: EntryViewModel): DatePickerView {
             val bundle = Bundle()
             bundle.putSerializable(ARG, viewModel)
 
             val frg = DatePickerView()
-            frg.setArguments(bundle)
+            frg.arguments = bundle
 
             return frg
         }

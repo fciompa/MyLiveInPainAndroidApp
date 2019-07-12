@@ -17,9 +17,7 @@ import cz.ciompa.frantisek.mylifeinpain.R
 import cz.ciompa.frantisek.mylifeinpain.databinding.ViewEntriesItemBinding
 import cz.ciompa.frantisek.mylifeinpain.domain.DomainImpl
 import cz.ciompa.frantisek.mylifeinpain.domain.entity.Entry
-import cz.ciompa.frantisek.mylifeinpain.entry.DatePickerView
-import cz.ciompa.frantisek.mylifeinpain.entry.EntryViewModel
-import cz.ciompa.frantisek.mylifeinpain.entry.TimePickerView
+import cz.ciompa.frantisek.mylifeinpain.entry.*
 import java.util.*
 
 class EntriesAdapter(private val context: Context, private val entryViewModelItemList: MutableMap<Int, ViewModel>) :
@@ -43,17 +41,31 @@ class EntriesAdapter(private val context: Context, private val entryViewModelIte
         holder.binding.viewModel = entryViewModel
         holder.binding.executePendingBindings()
 
-        entryViewModel.showDataPickerDialog.observe(context as LifecycleOwner, androidx.lifecycle.Observer {
+        entryViewModel.openDataPickerDialog.observe(context as LifecycleOwner, androidx.lifecycle.Observer {
             if (it.getContentIfNotHandled() == true) {
                 val activity = context as AppCompatActivity
                 DatePickerView.newInstance(entryViewModel).show(activity.supportFragmentManager, "datePicker")
             }
         })
 
-        entryViewModel.showTimePickerDialog.observe(context as LifecycleOwner, androidx.lifecycle.Observer {
+        entryViewModel.openTimePickerDialog.observe(context as LifecycleOwner, androidx.lifecycle.Observer {
             if (it.getContentIfNotHandled() == true) {
                 val activity = context as AppCompatActivity
                 TimePickerView.newInstance(entryViewModel).show(activity.supportFragmentManager, "timePicker")
+            }
+        })
+
+        entryViewModel.openLocationList.observe(context as LifecycleOwner, androidx.lifecycle.Observer {
+            if (it.getContentIfNotHandled() == true) {
+                val activity = context as AppCompatActivity
+                LocationListView.newInstance(entryViewModel).show(activity.supportFragmentManager, "locationList")
+            }
+        })
+
+        entryViewModel.openDescriptionList.observe(context as LifecycleOwner, androidx.lifecycle.Observer {
+            if (it.getContentIfNotHandled() == true) {
+                val activity = context as AppCompatActivity
+                DescriptionListView.newInstance(entryViewModel).show(activity.supportFragmentManager, "descriptionList")
             }
         })
     }

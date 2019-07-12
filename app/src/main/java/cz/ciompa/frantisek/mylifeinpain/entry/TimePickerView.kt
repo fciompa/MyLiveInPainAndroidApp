@@ -31,14 +31,14 @@ class TimePickerView : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
     companion object {
 
-        val ARG = "EntryViewModel"
+        const val ARG = "EntryViewModel"
 
         fun newInstance(viewModel: EntryViewModel): TimePickerView {
             val bundle = Bundle()
             bundle.putSerializable(ARG, viewModel)
 
             val frg = TimePickerView()
-            frg.setArguments(bundle)
+            frg.arguments = bundle
 
             return frg
         }

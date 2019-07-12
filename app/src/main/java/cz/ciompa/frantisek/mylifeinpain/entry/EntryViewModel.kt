@@ -61,29 +61,39 @@ class EntryViewModel(
         }
 
     var id: String = entry.id.toString()
+
     @Bindable
     var entryDate: String = dateFormat.format(date)
     @Bindable
     var entryTime: String = timeFormat.format(date)
+    @Bindable
     var intensity: String = entry.intensity.toString()
+    @Bindable
     var location: String = entry.location
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.location)
+        }
     @Bindable
     var description: String = entry.description
-    var note: String = entry.note
-    var showDataPickerDialog = MutableLiveData<Event<Boolean>>()
-    var showTimePickerDialog = MutableLiveData<Event<Boolean>>()
-
-    fun startDatePicker() {
-        showDataPickerDialog.postValue(Event(true))
-    }
-
-    fun startTimePicker() {
-        showTimePickerDialog.postValue(Event(true))
-    }
-
-    fun save() {
-        viewModelScope.launch(Dispatchers.IO) {
-            domain.insertEntry(Entry(id.toInt(), date, intensity.toInt(), location, description, note))
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.description)
         }
+    @Bindable
+    var note: String = entry.note
+
+    var openDataPickerDialog = MutableLiveData<Event<Boolean>>()
+    var openTimePickerDialog = MutableLiveData<Event<Boolean>>()
+    var openLocationList = MutableLiveData<Event<Boolean>>()
+    var openDescriptionList = MutableLiveData<Event<Boolean>>()
+
+    fun openDatePicker() = openDataPickerDialog.postValue(Event(true))
+    fun openTimePicker() = openTimePickerDialog.postValue(Event(true))
+    fun openLocationList() = openLocationList.postValue(Event(true))
+    fun openDescriptionList() = openDescriptionList.postValue(Event(true))
+
+    fun save() = viewModelScope.launch(Dispatchers.IO) {
+        domain.insertEntry(Entry(id.toInt(), date, intensity.toInt(), location, description, note))
     }
 }

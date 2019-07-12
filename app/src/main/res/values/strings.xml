@@ -13,4 +13,6 @@
     <string name="viewEntriesItemLocationHint">Location</string>
     <string name="view_entries_item_description">Description</string>
     <string name="viewEntriesItemNote">Note</string>
+    <string name="view_entries_item_button_location_list_text">Location list</string>
+    <string name="view_entries_item_button_descript_list_text">Descript list</string>
 </resources>

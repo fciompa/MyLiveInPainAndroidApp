@@ -59,7 +59,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:enabled="true"
-                android:onClick="@{() -> viewModel.startDatePicker()}"
+                android:onClick="@{() -> viewModel.openDatePicker()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toStartOf="@+id/textViewEntryTime"
@@ -78,7 +78,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{() -> viewModel.startTimePicker()}"
+                android:onClick="@{() -> viewModel.openTimePicker()}"
                 app:layout_constraintStart_toEndOf="@+id/textViewEntryDate"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -89,13 +89,13 @@
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp"
                 android:id="@+id/textInputLayoutLocation"
                 app:layout_constraintTop_toBottomOf="@+id/textViewEntryDate"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/buttonLocationList"
+                android:layout_marginEnd="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -103,8 +103,21 @@
                     android:hint="@string/viewEntriesItemLocationHint"
                     android:id="@+id/textInputEditTextLocation"
                     android:text="@={viewModel.location}"
-                    tools:text=""/>
+                    tools:text="viewModel.location"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonLocationList"
+                android:text="@string/view_entries_item_button_location_list_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="6dp"
+                android:onClick="@{() -> viewModel.openLocationList()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textInputLayoutLocation"
+                app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutLocation"/>
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutDescription"
@@ -112,11 +125,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayoutLocation"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                >
+                app:layout_constraintEnd_toStartOf="@+id/buttonDescriptionList"
+                android:layout_marginEnd="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textInputEditTextDescription"
@@ -124,8 +136,20 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/view_entries_item_description"
                     android:text="@={viewModel.description}"
+                    tools:text="viewModel.description"
                     />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:text="@string/view_entries_item_button_descript_list_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonDescriptionList"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{() -> viewModel.openDescriptionList()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textInputLayoutDescription"
+                app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutDescription"/>
 
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
@@ -144,6 +168,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/viewEntriesItemNote"
+                    android:text="@={viewModel.note}"
+                    tools:text="viewModel.note"
                     />
         </com.google.android.material.textfield.TextInputLayout>
 
